@@ -1,0 +1,24 @@
+name: Test Python
+
+description: Test Python
+
+inputs:
+  docker_image:
+    description: "Docker image to use for testing"
+    required: true
+    default: "your-dockerhub-username/your-image-name:tag"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Pull Docker image
+      run: |
+        docker pull ${{ inputs.docker_image }}
+      shell: bash
+
+    - name: Run tests in Docker container
+      run: |
+        docker run --rm ${{ inputs.docker_image }} pdm run pytest
+      shell: bash

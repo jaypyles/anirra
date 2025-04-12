@@ -1,0 +1,46 @@
+[project]
+name = "saas-backend"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [{ name = "Jayden Pyles", email = "jpylesbusiness@gmail.com" }]
+dependencies = [
+    "fastapi>=0.115.6",
+    "sqlalchemy>=2.0.37",
+    "pyjwt>=2.10.1",
+    "sqlalchemy-stubs>=0.4",
+    "python-dotenv>=1.0.1",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.2",
+    "httpx>=0.28.1",
+    "freezegun>=1.5.1",
+    "uvicorn>=0.34.0",
+    "python-multipart>=0.0.20",
+]
+requires-python = "==3.12.*"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project.scripts]
+saas-backend = "saas_backend.__main__:main"
+
+[tool.pdm]
+distribution = true
+
+[tool.pyright]
+reportMissingImports = true
+reportMissingTypeStubs = false
+reportAny = false
+reportUnknownVariableType = false
+reportUnknownMemberType = false
+reportExplicitAny = false
+reportCallInDefaultInitializer = false
+reportUnknownArgumentType = false
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["src/saas_backend/tests"]
+
+[tool.pytest]
+addopts = "-s"

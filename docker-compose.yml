@@ -1,0 +1,30 @@
+services:
+  saas-backend:
+    container_name: saas-backend
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    command: ./start.sh
+    env_file: .env
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+    ports:
+      - 8000:8000
+  saas-frontend:
+    container_name: saas-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend/public:/app/public
+      - ./frontend/src:/app/src
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
+      - ./frontend/postcss.config.mjs:/app/postcss.config.mjs
+      - ./frontend/next.config.ts:/app/next.config.ts
+      - ./frontend/eslint.config.mjs:/app/eslint.config.mjs
+      - ./frontend/components.json:/app/components.json
+    ports:
+      - 3000:3000

@@ -1,0 +1,18 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY frontend/package.json frontend/package-lock.json ./
+
+RUN npm install
+
+COPY frontend/public ./public
+COPY frontend/src ./src
+COPY frontend/tsconfig.json ./tsconfig.json
+COPY frontend/tailwind.config.ts ./tailwind.config.ts
+COPY frontend/postcss.config.mjs ./postcss.config.mjs
+COPY frontend/next.config.ts ./next.config.ts
+COPY frontend/eslint.config.mjs ./eslint.config.mjs
+COPY frontend/components.json ./components.json
+
+CMD ["npm", "run", "dev"]
