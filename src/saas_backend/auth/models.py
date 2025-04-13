@@ -1,7 +1,8 @@
+from enum import Enum as StdEnum
 from typing import final
 
 from pydantic import BaseModel
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import JSON, Column, DateTime, Enum, Float, ForeignKey, Integer, String
 
 from saas_backend.auth.database import Base, engine
 
@@ -9,6 +10,13 @@ from saas_backend.auth.database import Base, engine
 class BaseUser(BaseModel):
     username: str
     password: str
+
+
+class AnimeStatus(str, StdEnum):
+    WATCHED = "WATCHED"
+    PLANNING = "PLANNING"
+    WATCHING = "WATCHING"
+    DROPPED = "DROPPED"
 
 
 @final
@@ -50,8 +58,25 @@ class Anime(Base):
     status = Column(String)
     year = Column(Integer)
     season = Column(String)
-    genres = Column(String)
-    episodes = Column(String)
-    
+    tags = Column(JSON)
+    sources = Column(JSON)
+    document = Column(String)
+
+
+@final
+class WatchlistToAnime(Base):
+    __tablename__ = "watchlist_to_anime"
+    id = Column(Integer, primary_key=True, index=True)
+    watchlist_id = Column(Integer)
+    anime_id = Column(Integer)
+    status = Column(Enum(AnimeStatus))
+
+
+@final
+class Watchlist(Base):
+    __tablename__ = "watchlist"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer)
+
 
 Base.metadata.create_all(bind=engine)

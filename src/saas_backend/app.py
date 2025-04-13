@@ -3,11 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from saas_backend.auth.router import router as auth_router
 from dotenv import load_dotenv
 
+from saas_backend.anime import anime_router
+
 _ = load_dotenv()
 
 app = FastAPI()
 
 app.include_router(auth_router)
+app.include_router(anime_router)
 
 app.add_middleware(
     CORSMiddleware,

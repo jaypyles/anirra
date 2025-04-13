@@ -1,0 +1,4 @@
+{
+  "python.languageServer": "basedpyright",
+  "basedpyright.disableLanguageServices": true
+}

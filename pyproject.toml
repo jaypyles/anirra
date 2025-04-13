@@ -15,6 +15,7 @@ dependencies = [
     "freezegun>=1.5.1",
     "uvicorn>=0.34.0",
     "python-multipart>=0.0.20",
+    "rapidfuzz>=3.13.0",
 ]
 requires-python = "==3.12.*"
 
@@ -37,6 +38,8 @@ reportUnknownMemberType = false
 reportExplicitAny = false
 reportCallInDefaultInitializer = false
 reportUnknownArgumentType = false
+include = ["src/**/*.py"]
+exclude = [".venv"]
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"
