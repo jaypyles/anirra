@@ -60,7 +60,7 @@ class Anime(Base):
     season = Column(String)
     tags = Column(JSON)
     sources = Column(JSON)
-    document = Column(String)
+    reccomendation_string = Column(String)
 
 
 @final
