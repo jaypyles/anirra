@@ -41,7 +41,7 @@ async def get_recommendations(anime_ids: list[int] = []):
 
     # Get top 5 most similar anime (excluding input anime)
     top_indices = np.argsort(similarities)[::-1]
-    recommended_indices = [i for i in top_indices if i not in input_anime_indices][:5]
+    recommended_indices = [i for i in top_indices if i not in input_anime_indices][:10]
 
     recommendations = [all_anime[i] for i in recommended_indices]
     return recommendations

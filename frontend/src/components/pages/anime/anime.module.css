@@ -1,5 +1,6 @@
 .root {
   margin: 0 auto;
+  background-color: #f0f0f0;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
@@ -48,8 +49,8 @@
 .picture {
   max-width: unset !important;
   position: unset !important;
-  width: 40rem !important;
-  height: 60rem !important;
+  width: 30rem !important;
+  height: 40rem !important;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);

@@ -14,3 +14,9 @@
   width: 10rem;
   overflow: hidden;
 }
+
+.recommendationsContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}

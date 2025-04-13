@@ -2,6 +2,7 @@ import { AnimeProps } from "@/components/pages/anime";
 import classes from "./anime-page.module.css";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { MiniCard } from "../mini-card";
 
 export type AnimePageProps = AnimeProps & {
   children?: React.ReactNode;
@@ -60,14 +61,9 @@ export const Recommendations = ({ anime, className }: AnimePageProps) => {
   return (
     <div className={cn(classes.recommendations, className)}>
       <h2>Recommendations</h2>
-      <div className={classes.metadata}>
+      <div className={classes.recommendationsContainer}>
         {anime.recommendations.map((rec) => (
-          <div key={rec.id} className={classes.metadataItem}>
-            <div className={classes.metadataLabel}>{rec.title}</div>
-            <div className={classes.metadataValue}>
-              Score: {rec.rating.toFixed(2)}
-            </div>
-          </div>
+          <MiniCard key={rec.id} anime={rec} />
         ))}
       </div>
     </div>
