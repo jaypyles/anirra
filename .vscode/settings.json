@@ -1,4 +1,4 @@
 {
-  "python.languageServer": "basedpyright",
+  "python.languageServer": "Pylance",
   "basedpyright.disableLanguageServices": true
 }

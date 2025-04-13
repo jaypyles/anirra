@@ -16,6 +16,8 @@ dependencies = [
     "uvicorn>=0.34.0",
     "python-multipart>=0.0.20",
     "rapidfuzz>=3.13.0",
+    "numpy>=2.2.4",
+    "scikit-learn>=1.6.1",
 ]
 requires-python = "==3.12.*"
 
@@ -30,16 +32,45 @@ saas-backend = "saas_backend.__main__:main"
 distribution = true
 
 [tool.pyright]
-reportMissingImports = true
-reportMissingTypeStubs = false
-reportAny = false
-reportUnknownVariableType = false
-reportUnknownMemberType = false
-reportExplicitAny = false
-reportCallInDefaultInitializer = false
-reportUnknownArgumentType = false
 include = ["src/**/*.py"]
 exclude = [".venv"]
+
+# Type checking strictness
+typeCheckingMode = "strict"  # Enables strict type checking mode
+reportPrivateUsage = "error"
+reportMissingTypeStubs = "error"
+reportUntypedFunctionDecorator = "error"
+reportUntypedClassDecorator = "error"
+reportUntypedBaseClass = "error"
+reportInvalidTypeVarUse = "error"
+reportUnnecessaryTypeIgnoreComment = "information"
+reportUnknownVariableType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+
+# Additional checks
+reportImplicitStringConcatenation = "error"
+reportInvalidStringEscapeSequence = "error"
+reportMissingImports = "error"
+reportMissingModuleSource = "error"
+reportOptionalCall = "error"
+reportOptionalIterable = "error"
+reportOptionalMemberAccess = "error"
+reportOptionalOperand = "error"
+reportOptionalSubscript = "error"
+reportTypedDictNotRequiredAccess = "error"
+
+# Function return type checking
+reportIncompleteStub = "error"
+reportIncompatibleMethodOverride = "error"
+reportInvalidStubStatement = "error"
+reportInconsistentOverload = "error"
+
+# Misc settings
+pythonVersion = "3.12"  # Matches your Python version from pyproject.toml
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"

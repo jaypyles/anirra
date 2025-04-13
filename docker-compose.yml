@@ -1,6 +1,6 @@
 services:
-  saas-backend:
-    container_name: saas-backend
+  anime-backend:
+    container_name: anime-backend
     build:
       context: .
       dockerfile: Dockerfile.backend
@@ -11,8 +11,8 @@ services:
       - ./data:/app/data
     ports:
       - 8000:8000
-  saas-frontend:
-    container_name: saas-frontend
+  anime-frontend:
+    container_name: anime-frontend
     build:
       context: .
       dockerfile: Dockerfile.frontend
