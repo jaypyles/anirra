@@ -12,6 +12,8 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
   const [selectedAnimeIds, setSelectedAnimeIds] = useState<Set<number>>(
     new Set()
   );
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
 
   const handleCheckboxChange = (animeId: number) => {
     setSelectedAnimeIds((prevSelected) => {
@@ -59,6 +61,14 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
     }
   };
 
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const startIndex = currentPage * itemsPerPage;
+  const currentAnimes = animes.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(animes.length / itemsPerPage);
+
   return (
     <div className={styles.tableContainer}>
       <table className={styles.table}>
@@ -86,7 +96,7 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
           </tr>
         </thead>
         <tbody>
-          {animes.map((anime) => (
+          {currentAnimes.map((anime) => (
             <tr
               key={anime.id}
               className={`${styles.tableRow} ${
@@ -150,6 +160,23 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
           ))}
         </tbody>
       </table>
+      <div className={styles.pagination}>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 0}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage + 1} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage >= totalPages - 1}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

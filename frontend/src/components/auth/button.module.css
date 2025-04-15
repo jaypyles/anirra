@@ -1,0 +1,11 @@
+.authButton {
+  background-color: var(--purple-primary);
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.authButton:hover {
+  background-color: var(--purple-light);
+}

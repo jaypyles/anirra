@@ -1,7 +1,17 @@
+.watchlistTabs {
+  padding: 1rem;
+}
+
 .watchlistContainer {
-  background-color: #72b7f0;
+  background-color: var(--grey-light);
+  height: 100%;
 }
 
 .watchlistContent {
   padding: 1rem;
+}
+
+.watchlistTab {
+  color: var(--grey-dark);
+  font-weight: 600;
 }

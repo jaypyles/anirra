@@ -15,15 +15,64 @@ export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
 
   return (
     <div className={classes.watchlistContainer}>
-      <Tabs value={value} onChange={handleChange} aria-label="watchlist tabs">
-        <Tab label="Tab 1" />
-        <Tab label="Tab 2" />
-        <Tab label="Tab 3" />
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="watchlist tabs"
+        textColor="secondary"
+        indicatorColor="secondary"
+        className={classes.watchlistTabs}
+      >
+        <Tab label="Watching" className={classes.watchlistTab} disableRipple />
+        <Tab label="Watched" className={classes.watchlistTab} disableRipple />
+        <Tab label="Dropped" className={classes.watchlistTab} disableRipple />
+        <Tab
+          label="Plan to Watch"
+          className={classes.watchlistTab}
+          disableRipple
+        />
       </Tabs>
       <Box className={classes.watchlistContent}>
-        {value === 0 && <WatchlistTable watchlist={watchlist} />}
-        {value === 1 && <div>Content for Tab 2</div>}
-        {value === 2 && <div>Content for Tab 3</div>}
+        {value === 0 && (
+          <WatchlistTable
+            watchlist={{
+              ...watchlist,
+              anime: watchlist.anime.filter(
+                (anime) => anime.watchlist_status === "WATCHING"
+              ),
+            }}
+          />
+        )}
+        {value === 1 && (
+          <WatchlistTable
+            watchlist={{
+              ...watchlist,
+              anime: watchlist.anime.filter(
+                (anime) => anime.watchlist_status === "WATCHED"
+              ),
+            }}
+          />
+        )}
+        {value === 2 && (
+          <WatchlistTable
+            watchlist={{
+              ...watchlist,
+              anime: watchlist.anime.filter(
+                (anime) => anime.watchlist_status === "DROPPED"
+              ),
+            }}
+          />
+        )}
+        {value === 3 && (
+          <WatchlistTable
+            watchlist={{
+              ...watchlist,
+              anime: watchlist.anime.filter(
+                (anime) => anime.watchlist_status === "PLANNING"
+              ),
+            }}
+          />
+        )}
       </Box>
     </div>
   );

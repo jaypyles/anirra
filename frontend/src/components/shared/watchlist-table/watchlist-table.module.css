@@ -2,7 +2,7 @@
   overflow-x: auto;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  background-color: #91c6e9;
+  background-color: var(--grey-light);
 }
 
 .table {
@@ -12,7 +12,7 @@
 }
 
 .tableHead {
-  background-color: #f9fafb;
+  background-color: var(--grey-light);
 }
 
 .headerCell {
@@ -22,22 +22,22 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #6b7280;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--grey-dark);
+  border-bottom: 1px solid var(--grey-dark);
 }
 
 .checkboxCell {
   width: 3rem;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--grey-dark);
 }
 
 .checkbox {
   width: 1rem;
   height: 1rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--grey-dark);
   border-radius: 0.25rem;
-  accent-color: #3b82f6;
+  accent-color: var(--purple-primary);
 }
 
 .tableRow {
@@ -45,22 +45,22 @@
 }
 
 .tableRow:hover {
-  background-color: #f9fafb;
+  background-color: var(--grey-light);
 }
 
 .selectedRow {
-  background-color: #eff6ff;
+  background-color: var(--grey-light);
 }
 
 .selectedRow:hover {
-  background-color: #dbeafe;
+  background-color: var(--grey-light);
 }
 
 .cell {
   padding: 1rem;
   font-size: 0.875rem;
-  color: black;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--grey-dark);
+  border-bottom: 1px solid var(--grey-dark);
   white-space: nowrap;
 }
 
@@ -78,7 +78,7 @@
   height: 2.5rem;
   border-radius: 0.25rem;
   object-fit: cover;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--grey-dark);
 }
 
 .titleContainer {
@@ -87,7 +87,7 @@
 
 .animeTitle {
   font-weight: 500;
-  color: #1f2937;
+  color: var(--grey-dark);
   text-transform: capitalize;
 }
 
@@ -132,4 +132,11 @@
 
 .link:hover {
   text-decoration: underline;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  color: var(--grey-dark);
 }

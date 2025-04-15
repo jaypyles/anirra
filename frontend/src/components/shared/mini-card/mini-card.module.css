@@ -1,8 +1,8 @@
 .miniCard {
   padding: 1rem;
   border-radius: 1rem;
-  background-color: lightgray;
-  border: 1px solid #e0e0e0;
+  background-color: var(--grey-light);
+  border: 1px solid var(--grey-dark);
 }
 
 .miniCardTitle {
