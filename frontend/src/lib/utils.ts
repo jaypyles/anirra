@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { AxiosError, AxiosResponse } from "axios";
 import { AxiosRequestConfig } from "axios";
 import { nextApi } from "./api";
+import { getToken } from "next-auth/jwt";
+import { NextApiRequest } from "next";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,7 +16,12 @@ export async function fetch<T>(
   options?: AxiosRequestConfig
 ): Promise<T | null> {
   try {
-    const response: AxiosResponse<T> = await nextApi.get(url, options);
+    const method = options?.method || "GET";
+    const response: AxiosResponse<T> = await nextApi.request({
+      url,
+      method,
+      ...options,
+    });
 
     if (!response) {
       toast.error("No response received from server");
@@ -41,3 +48,7 @@ export async function fetch<T>(
     return null;
   }
 }
+
+export const getJwt = async (req: NextApiRequest) => {
+  return await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+};

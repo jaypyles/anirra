@@ -3,6 +3,16 @@ import classes from "./anime-page.module.css";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { MiniCard } from "../mini-card";
+import { WatchlistService } from "@/lib/watchlist-service";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+  Button,
+} from "@mui/material";
+import React from "react";
 
 export type AnimePageProps = AnimeProps & {
   children?: React.ReactNode;
@@ -34,7 +44,7 @@ export const Metadata = ({ anime, className }: AnimePageProps) => {
       <div className={classes.metadata}>
         <div className={classes.metadataItem}>
           <div className={classes.metadataLabel}>Score</div>
-          <div className={classes.metadataValue}>{anime.rating}</div>
+          <div className={classes.metadataValue}>{anime.rating.toFixed(2)}</div>
         </div>
         <div className={classes.metadataItem}>
           <div className={classes.metadataLabel}>Episodes</div>
@@ -53,6 +63,7 @@ export const Metadata = ({ anime, className }: AnimePageProps) => {
           <div className={classes.metadataValue}>{anime.tags.join(", ")}</div>
         </div>
       </div>
+      <WatchlistForm anime={anime} />
     </div>
   );
 };
@@ -66,6 +77,43 @@ export const Recommendations = ({ anime, className }: AnimePageProps) => {
           <MiniCard key={rec.id} anime={rec} />
         ))}
       </div>
+    </div>
+  );
+};
+
+export const WatchlistForm = ({ anime, className }: AnimePageProps) => {
+  const [status, setStatus] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const newStatus = event.target.value as string;
+    setStatus(newStatus);
+    WatchlistService.update([anime.id], newStatus);
+  };
+
+  return (
+    <div className={cn(classes.watchlistForm, className)}>
+      <h2>Watchlist</h2>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="watchlist-status-label">Status</InputLabel>
+        <Select
+          labelId="watchlist-status-label"
+          value={status}
+          onChange={handleChange}
+          label="Status"
+        >
+          <MenuItem value="PLANNING">Planning to Watch</MenuItem>
+          <MenuItem value="DROPPED">Dropped</MenuItem>
+          <MenuItem value="WATCHED">Watched</MenuItem>
+          <MenuItem value="WATCHING">Watching</MenuItem>
+        </Select>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => WatchlistService.update([anime.id], status)}
+        >
+          Add
+        </Button>
+      </FormControl>
     </div>
   );
 };
@@ -93,4 +141,5 @@ export const AnimePage = {
   Picture,
   Metadata,
   Recommendations,
+  WatchlistForm,
 };

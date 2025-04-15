@@ -18,18 +18,26 @@ export default async function handler(
   const jwt = await getJwt(req);
 
   // Get needed objects from client-side request
-  const { path } = req.query;
+  const { path, ...queryParams } = req.query;
   const method = req.method;
   const contentType = req.headers["content-type"] as string;
   const headers = new AxiosHeaders({
     "Content-Type": contentType,
   });
   const body = req.body;
+
   const forwardPath = Array.isArray(path) ? path.join("/") : `/${path}`;
+
+  const queryString = new URLSearchParams(
+    queryParams as Record<string, string>
+  ).toString();
+
+  const fullPath = queryString ? `${forwardPath}?${queryString}` : forwardPath;
 
   try {
     // Set request specific items
     let forwardedBody = body;
+    console.log(body);
 
     if (method !== "GET" && method !== "DELETE") {
       const contentType = headers.get("Content-Type") as string;
@@ -47,18 +55,22 @@ export default async function handler(
     }
 
     let response;
+    console.log(fullPath);
+    console.log(headers);
+    console.log(forwardedBody);
 
     try {
+      console.log(`Forwarding request to ${fullPath}`);
       response = await api.request({
         method: method,
-        url: forwardPath,
+        url: fullPath,
         headers: headers,
         data: forwardedBody,
       });
     } catch (error: unknown) {
       console.log(
-        `An unexpected error occurred at ${forwardPath} with data: ${forwardedBody}`,
-        error
+        `An unexpected error occurred at ${fullPath}
+        error: ${error}`
       );
 
       if (error instanceof AxiosError) {

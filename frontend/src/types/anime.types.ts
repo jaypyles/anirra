@@ -10,4 +10,5 @@ export type Anime = {
   recommendations: Anime[];
   image_url: string;
   tags: string[];
+  watchlist_status?: string;
 };

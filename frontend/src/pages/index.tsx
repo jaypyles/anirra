@@ -1,14 +1,5 @@
-import React from "react";
-import { useSession } from "next-auth/react";
-import LandingPage from "@/components/pages/landing-page";
-import { LoggedInUser } from "@/components/pages/logged-in-user";
+import { Landing } from "@/components/pages/landing";
+import getServerSideProps from "@/components/pages/landing/get-server-side-props";
 
-export default function Home() {
-  const { data: session } = useSession();
-
-  if (!session) {
-    return <LandingPage />;
-  }
-
-  return <LoggedInUser />;
-}
+export default Landing;
+export { getServerSideProps };

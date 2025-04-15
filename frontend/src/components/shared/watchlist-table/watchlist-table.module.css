@@ -1,0 +1,135 @@
+.tableContainer {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background-color: #91c6e9;
+}
+
+.table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tableHead {
+  background-color: #f9fafb;
+}
+
+.headerCell {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.checkboxCell {
+  width: 3rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  accent-color: #3b82f6;
+}
+
+.tableRow {
+  transition: background-color 0.2s;
+}
+
+.tableRow:hover {
+  background-color: #f9fafb;
+}
+
+.selectedRow {
+  background-color: #eff6ff;
+}
+
+.selectedRow:hover {
+  background-color: #dbeafe;
+}
+
+.cell {
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: black;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+}
+
+.imageWrapper {
+  flex-shrink: 0;
+}
+
+.animeImage {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.titleContainer {
+  margin-left: 1rem;
+}
+
+.animeTitle {
+  font-weight: 500;
+  color: #1f2937;
+  text-transform: capitalize;
+}
+
+.statusBadge {
+  display: inline-flex;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  line-height: 1.25;
+}
+
+.statusCompleted {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.statusOngoing {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.statusPlanned {
+  background-color: #ede9fe;
+  color: #5b21b6;
+}
+
+.statusDefault {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.statusDropped {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

@@ -1,10 +1,17 @@
 import { Anime } from "@/types/anime.types";
 import classes from "./mini-card.module.css";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export const MiniCard = ({ anime }: { anime: Anime }) => {
+export const MiniCard = ({
+  anime,
+  className,
+}: {
+  anime: Anime;
+  className?: string;
+}) => {
   return (
-    <div className={classes.miniCard}>
+    <div className={cn(classes.miniCard, className)}>
       <Image
         className={classes.miniCardImage}
         src={anime.image_url}
@@ -12,7 +19,9 @@ export const MiniCard = ({ anime }: { anime: Anime }) => {
         fill
       />
       <div className={classes.miniCardContent}>
-        <div className={classes.miniCardTitle}>{anime.title}</div>
+        <div className={classes.miniCardTitle}>
+          <a href={`/anime/${anime.id}`}>{anime.title}</a>
+        </div>
         <div className={classes.miniCardScore}>{anime.rating.toFixed(2)}</div>
       </div>
     </div>

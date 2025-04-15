@@ -6,6 +6,7 @@ import AuthModal from "../auth/login-modal";
 import { useSession } from "next-auth/react";
 import { CreditBalance } from "./credit-balance";
 import Image from "next/image";
+import { DebounceSearchBar } from "../shared/debounce-search-bar";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,16 +50,12 @@ const Header = () => {
               )}
             </button>
           </div>
-          {status === "authenticated" && (
-            <div>
-              <p className="text-sm text-gray-500">
-                Welcome, {session.user?.username}
-              </p>
-            </div>
-          )}
-          <CreditBalance />
           <nav className="hidden md:flex space-x-10">
             <AuthButton toggleAuthModal={toggleAuthModal} />
+          </nav>
+
+          <nav className="hidden md:flex space-x-10">
+            <DebounceSearchBar />
           </nav>
         </div>
       </div>

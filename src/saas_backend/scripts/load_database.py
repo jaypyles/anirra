@@ -1,14 +1,19 @@
 import json
+import os
 
 from saas_backend.auth.database import get_db
 from saas_backend.auth.models import Anime
+
+JSON_DATA_PATH = os.getenv("JSON_DATA_PATH", "./data/anime-offline-database.json")
 
 
 def load_database():
     connection = next(get_db())
 
-    with open("../../toys/anime-offline-database.json", "r") as f:
+    with open(JSON_DATA_PATH, "r") as f:
         raw_data = json.load(f)
+
+    print(len(raw_data["data"]))
 
     for anime in raw_data["data"]:
         # Get score if it exists, then get median if score exists

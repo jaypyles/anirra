@@ -4,7 +4,13 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ["storage.googleapis.com", "cdn.myanimelist.net"],
+    domains: [
+      "storage.googleapis.com",
+      "cdn.myanimelist.net",
+      "cdn.anime-planet.com",
+      "cdn.anidb.net",
+      "cdn.anisearch.com",
+    ],
   },
 };
 

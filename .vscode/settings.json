@@ -1,4 +1,12 @@
 {
   "python.languageServer": "Pylance",
-  "basedpyright.disableLanguageServices": true
+  "basedpyright.disableLanguageServices": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "conn",
+      "database": "./data/database.db"
+    }
+  ]
 }
