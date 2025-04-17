@@ -6,6 +6,7 @@
 }
 
 .miniCardTitle {
+  font-family: var(--root-font);
   margin-top: 0.5rem;
   font-weight: 600;
   max-width: 7rem;
@@ -27,4 +28,8 @@
   position: unset !important;
   height: 10rem !important;
   width: 8rem !important;
+}
+
+.miniCardScore {
+  font-family: var(--root-font);
 }

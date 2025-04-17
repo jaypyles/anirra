@@ -5,3 +5,10 @@ export type Watchlist = {
   user_id: number;
   anime: Anime[];
 };
+
+export enum WatchlistStatus {
+  WATCHING = "WATCHING",
+  WATCHED = "WATCHED",
+  PLANNING = "PLANNING",
+  DROPPED = "DROPPED",
+}

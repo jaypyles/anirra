@@ -1,17 +1,14 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, TableProperties, X } from "lucide-react";
 import AuthButton from "../auth/button";
 import AuthModal from "../auth/login-modal";
-import { useSession } from "next-auth/react";
-import { CreditBalance } from "./credit-balance";
 import Image from "next/image";
 import { DebounceSearchBar } from "../shared/debounce-search-bar";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const { data: session, status } = useSession();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -50,6 +47,17 @@ const Header = () => {
               )}
             </button>
           </div>
+
+          <nav className="hidden md:flex space-x-10">
+            <Link
+              href="/watchlist"
+              className="text-base font-medium text-gray-900 hover:text-gray-700 flex items-center gap-2"
+            >
+              <TableProperties />
+              <span>Watchlist</span>
+            </Link>
+          </nav>
+
           <nav className="hidden md:flex space-x-10">
             <AuthButton toggleAuthModal={toggleAuthModal} />
           </nav>

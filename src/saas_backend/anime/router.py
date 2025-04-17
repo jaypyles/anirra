@@ -110,7 +110,7 @@ async def update_watchlists(
 @router.delete("/watchlists")
 async def delete_watchlist_entry(
     anime_id: int,
-    user: User = Depends(UserManager.get_user_from_header),
+    _: User = Depends(UserManager.get_user_from_header),
 ):
     connection = next(get_db())
     watchlist_to_anime = connection.query(WatchlistToAnime).filter(WatchlistToAnime.anime_id == anime_id).first()  # type: ignore
@@ -171,5 +171,12 @@ async def get_anime(id: int):
 
     if anime is None:
         raise HTTPException(status_code=404, detail="Anime not found")
+
+    anime_to_watchlist = connection.query(WatchlistToAnime).filter(WatchlistToAnime.anime_id == id).first()  # type: ignore
+
+    if anime_to_watchlist:
+        anime.watchlist_status = anime_to_watchlist.status
+    else:
+        anime.watchlist_status = None
 
     return anime

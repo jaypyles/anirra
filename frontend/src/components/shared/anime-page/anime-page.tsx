@@ -13,6 +13,10 @@ import {
   Button,
 } from "@mui/material";
 import React from "react";
+import { WatchlistStatus } from "@/types/watchlist.types";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+import { StarIcon } from "lucide-react";
 
 export type AnimePageProps = AnimeProps & {
   children?: React.ReactNode;
@@ -38,32 +42,60 @@ export const Picture = ({ anime, className }: AnimePageProps) => {
   );
 };
 
-export const Metadata = ({ anime, className }: AnimePageProps) => {
+export const Metadata = ({
+  anime,
+  className,
+  watchlistStatus,
+}: AnimePageProps) => {
   return (
     <div className={cn(classes.metadata, className)}>
-      <div className={classes.metadata}>
-        <div className={classes.metadataItem}>
-          <div className={classes.metadataLabel}>Score</div>
-          <div className={classes.metadataValue}>{anime.rating.toFixed(2)}</div>
+      <div className={classes.metadataGrid}>
+        {/* Left Column - Stats and Watchlist */}
+        <div className={classes.leftColumn}>
+          <div className={classes.metadataItem}>
+            <div className={classes.metadataLabel}>Score</div>
+            <div className={classes.metadataValue}>
+              {anime.rating ? (
+                <>
+                  <StarIcon />
+                  <span>{anime.rating.toFixed(2)}</span>
+                </>
+              ) : (
+                "N/A"
+              )}
+            </div>
+          </div>
+          <div className={classes.metadataItem}>
+            <div className={classes.metadataLabel}>Episodes</div>
+            <div className={classes.metadataValue}>{anime.episode_count}</div>
+          </div>
+          <div className={classes.metadataItem}>
+            <div className={classes.metadataLabel}>Status</div>
+            <div className={classes.metadataValue}>
+              {anime.status.toLowerCase()}
+            </div>
+          </div>
+          <div className={classes.metadataItem}>
+            <div className={classes.metadataLabel}>Year</div>
+            <div className={classes.metadataValue}>{anime.year}</div>
+          </div>
+          <WatchlistForm anime={anime} watchlistStatus={watchlistStatus} />
         </div>
-        <div className={classes.metadataItem}>
-          <div className={classes.metadataLabel}>Episodes</div>
-          <div className={classes.metadataValue}>{anime.episode_count}</div>
-        </div>
-        <div className={classes.metadataItem}>
-          <div className={classes.metadataLabel}>Status</div>
-          <div className={classes.metadataValue}>{anime.status}</div>
-        </div>
-        <div className={classes.metadataItem}>
-          <div className={classes.metadataLabel}>Year</div>
-          <div className={classes.metadataValue}>{anime.year}</div>
-        </div>
-        <div className={classes.metadataItem}>
-          <div className={classes.metadataLabel}>Genres</div>
-          <div className={classes.metadataValue}>{anime.tags.join(", ")}</div>
+
+        {/* Right Column - Genre Tags */}
+        <div className={classes.rightColumn}>
+          <div className={classes.genreContainer}>
+            <div className={classes.genreHeader}>Genres</div>
+            <div className={classes.genreTags}>
+              {anime.tags.map((tag, index) => (
+                <span key={index} className={classes.genreTag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-      <WatchlistForm anime={anime} />
     </div>
   );
 };
@@ -81,25 +113,46 @@ export const Recommendations = ({ anime, className }: AnimePageProps) => {
   );
 };
 
-export const WatchlistForm = ({ anime, className }: AnimePageProps) => {
-  const [status, setStatus] = React.useState("");
+export const WatchlistForm = ({
+  anime,
+  className,
+  watchlistStatus,
+}: AnimePageProps) => {
+  const [status, setStatus] = React.useState(watchlistStatus);
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    const newStatus = event.target.value as string;
+  const onSelectChange = (event: SelectChangeEvent<string>) => {
+    setStatus(event.target.value as WatchlistStatus);
+  };
+
+  const handleChange = () => {
+    const newStatus = status as WatchlistStatus;
     setStatus(newStatus);
-    WatchlistService.update([anime.id], newStatus);
+
+    try {
+      WatchlistService.update([anime.id], newStatus);
+      toast.success(`Watchlist status updated to ${newStatus.toLowerCase()}`);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Failed to update watchlist status");
+      }
+    }
   };
 
   return (
     <div className={cn(classes.watchlistForm, className)}>
       <h2>Watchlist</h2>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="watchlist-status-label">Status</InputLabel>
+        <InputLabel className={classes.inputLabel} id="watchlist-status-label">
+          Status
+        </InputLabel>
         <Select
           labelId="watchlist-status-label"
           value={status}
-          onChange={handleChange}
           label="Status"
+          className={classes.select}
+          onChange={onSelectChange}
         >
           <MenuItem value="PLANNING">Planning to Watch</MenuItem>
           <MenuItem value="DROPPED">Dropped</MenuItem>
@@ -109,7 +162,13 @@ export const WatchlistForm = ({ anime, className }: AnimePageProps) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => WatchlistService.update([anime.id], status)}
+          onClick={handleChange}
+          sx={{
+            backgroundColor: "var(--purple-primary)",
+            "&:hover": {
+              backgroundColor: "var(--purple-dark)",
+            },
+          }}
         >
           Add
         </Button>

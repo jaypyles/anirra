@@ -2,19 +2,25 @@ import { Anime as AnimeType } from "@/types/anime.types";
 import { AnimePage } from "@/components/shared/anime-page/anime-page";
 
 import classes from "./anime.module.css";
+import { WatchlistStatus } from "@/types/watchlist.types";
 
 export type AnimeProps = {
   anime: AnimeType;
+  watchlistStatus?: WatchlistStatus;
 };
 
-export const Anime = ({ anime }: AnimeProps) => {
+export const Anime = ({ anime, watchlistStatus }: AnimeProps) => {
   return (
     <AnimePage.Root anime={anime} className={classes.root}>
       <AnimePage.Header anime={anime} className={classes.header} />
       <div className={classes.body}>
         <div className={classes.contentContainer}>
           <AnimePage.Picture anime={anime} className={classes.picture} />
-          <AnimePage.Metadata anime={anime} className={classes.metadata} />
+          <AnimePage.Metadata
+            anime={anime}
+            watchlistStatus={watchlistStatus}
+            className={classes.metadata}
+          />
         </div>
 
         <AnimePage.Recommendations

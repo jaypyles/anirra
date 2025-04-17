@@ -1,4 +1,3 @@
-import Link from "next/link";
 import classes from "./landing.module.css";
 import { useSession } from "next-auth/react";
 import useUser from "@/hooks/useUser";
@@ -38,11 +37,6 @@ export const Landing = ({ stats, recommendedAnime = [] }: LandingProps) => {
           <h1>Welcome, {user?.username || "Anime Fan"}</h1>
           <p>Track your anime journey</p>
         </div>
-        <nav className={classes.navigation}>
-          <Link href="/watchlist" className={classes.navLink}>
-            Watchlist
-          </Link>
-        </nav>
       </header>
 
       <div className={classes.statsContainer}>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Watchlist as WatchlistType } from "@/types/watchlist.types";
 import styles from "./watchlist-table.module.css";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { TrashIcon } from "lucide-react";
 import { WatchlistService } from "@/lib/watchlist-service";
 import { Anime } from "@/types/anime.types";
@@ -161,21 +161,25 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
         </tbody>
       </table>
       <div className={styles.pagination}>
-        <button
+        <Button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 0}
+          sx={{
+            backgroundColor: "var(--purple-primary)",
+          }}
         >
-          Previous
-        </button>
-        <span>
-          Page {currentPage + 1} of {totalPages}
-        </span>
-        <button
+          <span>Previous</span>
+        </Button>
+        Page {currentPage + 1} of {totalPages}
+        <Button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage >= totalPages - 1}
+          sx={{
+            backgroundColor: "var(--purple-primary)",
+          }}
         >
-          Next
-        </button>
+          <span>Next</span>
+        </Button>
       </div>
     </div>
   );

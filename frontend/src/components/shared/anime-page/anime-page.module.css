@@ -1,22 +1,167 @@
 .metadata {
-  display: flex;
-  gap: 2rem;
   width: 100%;
+  background-color: var(--grey-dark);
+  padding: 1rem;
+  max-height: 60rem;
+  overflow-y: auto;
+}
+
+.metadataGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
 }
 
 .metadataItem {
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  border: 1px solid #e0e0e0;
-  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 12px 16px;
+  transition: all 0.2s ease;
   height: fit-content;
-  max-height: 10rem;
-  width: 10rem;
+}
+
+.metadataItem:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.metadataLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.metadataValue {
+  font-family: var(--root-font);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #212529;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metadataValue svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.metadataValue span {
+  margin-top: 0.2rem;
+}
+
+.genreContainer {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.genreContainer:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.genreHeader {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.genreTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  max-height: 30rem;
+  overflow-y: auto;
+  font-family: var(--root-font);
+}
+
+.genreTag {
+  display: inline-block;
+  background-color: #e9ecef;
+  color: #495057;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.35rem 0.85rem;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.genreTag:hover {
+  background-color: #dee2e6;
+  transform: translateY(-1px);
+}
+
+.watchlistForm {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 16px 20px;
+  margin-top: 8px;
+}
+
+.watchlistForm h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 12px;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 12px;
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .metadataGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rightColumn {
+    margin-top: 1rem;
+  }
 }
 
 .recommendationsContainer {
   display: flex;
   gap: 1rem;
   justify-content: center;
+}
+
+.inputLabel.MuiFormLabel-root {
+  color: var(--purple-primary);
 }
