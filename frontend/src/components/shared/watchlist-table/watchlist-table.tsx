@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Watchlist as WatchlistType } from "@/types/watchlist.types";
 import styles from "./watchlist-table.module.css";
@@ -6,6 +6,7 @@ import { Button, IconButton } from "@mui/material";
 import { TrashIcon } from "lucide-react";
 import { WatchlistService } from "@/lib/watchlist-service";
 import { Anime } from "@/types/anime.types";
+import { toast } from "react-toastify";
 
 export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
   const [animes, setAnimes] = useState<Anime[]>(watchlist.anime);
@@ -13,7 +14,7 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
     new Set()
   );
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
 
   const handleCheckboxChange = (animeId: number) => {
     setSelectedAnimeIds((prevSelected) => {
@@ -50,24 +51,31 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
     return styles.statusDefault;
   };
 
-  const handleDelete = async (animeId: number) => {
+  const handleDelete = async (animeId: number, animeTitle: string) => {
     try {
       await WatchlistService.deleteEntry(animeId);
       setAnimes((prevAnimes) =>
         prevAnimes.filter((anime) => anime.id !== animeId)
       );
+      toast.success(`${animeTitle} removed from watchlist`);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
-  };
+  }, []);
 
   const startIndex = currentPage * itemsPerPage;
   const currentAnimes = animes.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(animes.length / itemsPerPage);
+
+  useEffect(() => {
+    if (currentAnimes.length === 0 && currentPage > 0) {
+      handlePageChange(currentPage - 1);
+    }
+  }, [currentAnimes, currentPage, handlePageChange]);
 
   return (
     <div className={styles.tableContainer}>
@@ -152,7 +160,7 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
                 </span>
               </td>
               <td className={styles.cell}>
-                <IconButton onClick={() => handleDelete(anime.id)}>
+                <IconButton onClick={() => handleDelete(anime.id, anime.title)}>
                   <TrashIcon />
                 </IconButton>
               </td>

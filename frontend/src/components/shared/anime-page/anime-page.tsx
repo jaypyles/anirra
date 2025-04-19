@@ -2,7 +2,6 @@ import { AnimeProps } from "@/components/pages/anime";
 import classes from "./anime-page.module.css";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { MiniCard } from "../mini-card";
 import { WatchlistService } from "@/lib/watchlist-service";
 import {
   Select,
@@ -17,6 +16,7 @@ import { WatchlistStatus } from "@/types/watchlist.types";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { StarIcon } from "lucide-react";
+import { Recommendations as RecommendationsComponent } from "../recommendations/recommendations";
 
 export type AnimePageProps = AnimeProps & {
   children?: React.ReactNode;
@@ -100,16 +100,13 @@ export const Metadata = ({
   );
 };
 
-export const Recommendations = ({ anime, className }: AnimePageProps) => {
+export const Recommendations = ({
+  anime,
+  className,
+}: AnimePageProps) => {
   return (
-    <div className={cn(classes.recommendations, className)}>
-      <h2>Recommendations</h2>
-      <div className={classes.recommendationsContainer}>
-        {anime.recommendations.map((rec) => (
-          <MiniCard key={rec.id} anime={rec} />
-        ))}
-      </div>
-    </div>
+    <RecommendationsComponent
+      recommendedAnime={anime.recommendations} className={className} />
   );
 };
 

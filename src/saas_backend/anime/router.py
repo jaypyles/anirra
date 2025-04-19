@@ -28,8 +28,10 @@ async def search_anime(query: str, limit: int = 5, offset: int = 0):
 
 
 @router.get("/recommendations")
-async def get_anime_recommendations(ids: list[int] = Query(default=[])):
-    return await get_recommendations(ids)
+async def get_anime_recommendations(
+    ids: list[int] = Query(default=[]), limit: int = Query(default=10)
+):
+    return await get_recommendations(limit, ids)
 
 
 @router.get("/watchlists")

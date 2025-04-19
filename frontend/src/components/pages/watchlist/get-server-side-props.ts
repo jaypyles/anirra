@@ -12,8 +12,6 @@ export default async function GetServerSideProps(
     };
   }
 
-  console.log(jwt);
-
   const watchlist = await fetch(`${process.env.API_URL}/anime/watchlists`, {
     headers: {
       Authorization: `Bearer ${jwt.access_token}`,

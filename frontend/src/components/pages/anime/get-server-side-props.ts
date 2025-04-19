@@ -15,8 +15,6 @@ export default async function GetServerSideProps(
 
   const animeData = await anime.json();
 
-  console.log(animeData);
-
   return {
     props: {
       anime: { ...animeData, recommendations: recommendationsData },

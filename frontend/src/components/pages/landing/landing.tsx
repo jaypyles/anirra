@@ -1,8 +1,8 @@
 import classes from "./landing.module.css";
 import { useSession } from "next-auth/react";
 import useUser from "@/hooks/useUser";
-import { MiniCard } from "@/components/shared/mini-card";
 import { Anime } from "@/types/anime.types";
+import { Recommendations } from "@/components/shared/recommendations/recommendations";
 
 export type LandingProps = {
   stats: {
@@ -57,34 +57,30 @@ export const Landing = ({ stats, recommendedAnime = [] }: LandingProps) => {
         <div className={classes.statCard}>
           <div className={classes.statIcon}>🏷️</div>
           <div className={classes.statTitle}>Top Genres</div>
-          <ul className={classes.genreList}>
-            {stats.most_common_genres.slice(0, 5).map(([genre], index) => (
-              <li key={index} className={classes.genreItem}>
-                {genre}
-              </li>
-            ))}
-          </ul>
+          <div className={classes.genreListContainer}>
+            <ul className={classes.genreList}>
+              {stats.most_common_genres.slice(0, 3).map(([genre], index) => (
+                <li key={index} className={classes.genreItem}>
+                  {genre}
+                </li>
+              ))}
+            </ul>
+
+            <ul className={classes.genreList}>
+              {stats.most_common_genres.slice(3, 6).map(([genre], index) => (
+                <li key={index} className={classes.genreItem}>
+                  {genre}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
-      <section className={classes.recommendedSection}>
-        <h2 className={classes.sectionTitle}>Recommended for you</h2>
-        <div className={classes.animeGrid}>
-          {recommendedAnime.length > 0 ? (
-            recommendedAnime.map((anime) => (
-              <MiniCard
-                className={classes.miniCard}
-                key={anime.id}
-                anime={anime}
-              />
-            ))
-          ) : (
-            <div className={classes.noRecommendations}>
-              Watch more anime to get personalized recommendations!
-            </div>
-          )}
-        </div>
-      </section>
+      <Recommendations
+        recommendedAnime={recommendedAnime}
+        className={classes.recommendedSection}
+      />
     </div>
   );
 };

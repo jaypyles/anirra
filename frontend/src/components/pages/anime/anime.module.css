@@ -1,11 +1,15 @@
+:global(#__next) {
+  height: unset;
+}
+
 .root {
-  margin: 0 auto;
   background-color: #f0f0f0;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   color: black;
+  height: 100%;
 }
 
 .header {
@@ -95,7 +99,8 @@
 /* Recommendations section */
 .recommendations {
   margin-top: 1rem;
-  width: 100%;
+  width: 97vw;
+  display: block;
 }
 
 .recommendations h2 {

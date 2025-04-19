@@ -9,6 +9,7 @@
 
 .watchlistContent {
   padding: 1rem;
+  height: calc(100% - 5rem);
 }
 
 .watchlistTab {

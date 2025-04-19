@@ -6,7 +6,7 @@ from saas_backend.auth.database import get_db
 from saas_backend.auth.models import Anime
 
 
-async def get_recommendations(anime_ids: list[int] = []):
+async def get_recommendations(limit: int, anime_ids: list[int] = []):
     connection = next(get_db())
 
     # Get all anime for building the TF-IDF matrix
@@ -41,7 +41,9 @@ async def get_recommendations(anime_ids: list[int] = []):
 
     # Get top 5 most similar anime (excluding input anime)
     top_indices = np.argsort(similarities)[::-1]
-    recommended_indices = [i for i in top_indices if i not in input_anime_indices][:10]
+    recommended_indices = [i for i in top_indices if i not in input_anime_indices][
+        :limit
+    ]
 
     recommendations = [all_anime[i] for i in recommended_indices]
     return recommendations

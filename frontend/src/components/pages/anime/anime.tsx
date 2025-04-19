@@ -10,6 +10,7 @@ export type AnimeProps = {
 };
 
 export const Anime = ({ anime, watchlistStatus }: AnimeProps) => {
+  console.log(anime.recommendations.length);
   return (
     <AnimePage.Root anime={anime} className={classes.root}>
       <AnimePage.Header anime={anime} className={classes.header} />

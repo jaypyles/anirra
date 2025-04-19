@@ -1,6 +1,11 @@
+:global(#__next) {
+  height: unset;
+}
+
 .dashboardContainer {
   padding: 2rem;
   background-color: var(--grey-light);
+  height: calc(100% - 4rem);
 }
 
 .dashboardHeader {
@@ -59,6 +64,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  height: 16rem;
 }
 
 .statCard:hover {
@@ -114,9 +120,7 @@
 }
 
 .animeGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.5rem;
+  width: 100%;
 }
 
 .animeCard {
@@ -216,4 +220,10 @@
 .miniCard img {
   border: 1px solid var(--grey-dark);
   border-radius: 0.5rem;
+  max-width: unset;
+}
+
+.genreListContainer {
+  display: flex;
+  gap: 0.5rem;
 }

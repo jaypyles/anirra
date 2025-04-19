@@ -37,7 +37,7 @@ export default async function GetServerSideProps(
   const animeRecommendations = await fetch(
     `${process.env.API_URL}/anime/recommendations?${animeWatchedData.anime
       .map((anime: Anime) => `ids=${anime.id}`)
-      .join("&")}`,
+      .join("&")}&limit=20`,
     {
       headers: {
         Authorization: `Bearer ${jwt.access_token}`,

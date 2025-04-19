@@ -1,8 +1,9 @@
+import "@/styles/globals.css";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" style={{ height: "100vh" }}>
       <Head>
         <link
           href="https://fonts.googleapis.com/css?family=Anonymous+Pro"
@@ -19,7 +20,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body className="antialiased">
+      <body className="antialiased" style={{ height: "100vh" }}>
         <Main />
         <NextScript />
       </body>

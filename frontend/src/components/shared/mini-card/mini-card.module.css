@@ -2,7 +2,7 @@
   padding: 1rem;
   border-radius: 1rem;
   background-color: var(--grey-light);
-  border: 1px solid var(--grey-dark);
+  border: 1px solid var(--grey-medium);
 }
 
 .miniCardTitle {
