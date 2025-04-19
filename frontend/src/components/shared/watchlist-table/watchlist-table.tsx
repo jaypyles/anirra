@@ -14,7 +14,7 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
     new Set()
   );
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 6;
 
   const handleCheckboxChange = (animeId: number) => {
     setSelectedAnimeIds((prevSelected) => {
