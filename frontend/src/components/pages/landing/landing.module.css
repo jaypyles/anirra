@@ -1,13 +1,6 @@
-:global(#__next) {
-  @media (max-width: 1920px) {
-    height: unset;
-  }
-}
-
 .dashboardContainer {
   padding: 2rem;
   background-color: var(--grey-light);
-  height: calc(100% - 4rem);
 }
 
 .dashboardHeader {

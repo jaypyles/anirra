@@ -22,14 +22,23 @@
   }
 }
 
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 #__next {
   display: flex;
   flex-direction: column;
-  height: 100%;
-
-  @media (min-width: 1920px) {
-    height: 100vh;
-  }
+  flex: 1;
 }
 
 body {
