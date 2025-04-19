@@ -4,15 +4,17 @@ import { MiniCard } from "../mini-card/mini-card";
 import classes from "./recommendations.module.css";
 
 export const Recommendations = ({
+  title,
   recommendedAnime,
   className,
 }: {
+  title?: string;
   recommendedAnime: Anime[];
   className?: string;
 }) => {
   return (
     <section className={classes.recommendedSection}>
-      <h2 className={classes.sectionTitle}>Recommended for you</h2>
+      <h2 className={classes.sectionTitle}>{title || "Recommended for you"}</h2>
       <div className={classes.animeGrid}>
         {recommendedAnime.length > 0 ? (
           <ItemPaginator.Root

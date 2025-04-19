@@ -22,7 +22,9 @@ export const MiniCard = ({
         <div className={classes.miniCardTitle}>
           <a href={`/anime/${anime.id}`}>{anime.title}</a>
         </div>
-        <div className={classes.miniCardScore}>{anime.rating.toFixed(2)}</div>
+        <div className={classes.miniCardScore}>
+          {anime.rating ? anime.rating.toFixed(2) : "N/A"}
+        </div>
       </div>
     </div>
   );

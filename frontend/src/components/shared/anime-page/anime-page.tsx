@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { StarIcon } from "lucide-react";
 import { Recommendations as RecommendationsComponent } from "../recommendations/recommendations";
-
+import Link from "next/link";
 export type AnimePageProps = AnimeProps & {
   children?: React.ReactNode;
   className?: string;
@@ -94,9 +94,11 @@ export const Metadata = ({
             <div className={classes.rightColumnHeader}>Genres</div>
             <div className={classes.genreTags}>
               {anime.tags.map((tag, index) => (
-                <span key={index} className={classes.genreTag}>
-                  {tag}
-                </span>
+                <Link href={`/tag/${tag}`} key={index}>
+                  <span key={index} className={classes.genreTag}>
+                    {tag}
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
@@ -106,9 +108,14 @@ export const Metadata = ({
   );
 };
 
-export const Recommendations = ({ anime, className }: AnimePageProps) => {
+export const Recommendations = ({
+  anime,
+  title,
+  className,
+}: AnimePageProps & { title?: string }) => {
   return (
     <RecommendationsComponent
+      title={title}
       recommendedAnime={anime.recommendations}
       className={className}
     />

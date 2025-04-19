@@ -1,0 +1,18 @@
+.container {
+  background-color: var(--grey-light);
+  padding: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--grey-dark);
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background-color: var(--purple-light);
+  color: var(--grey-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}

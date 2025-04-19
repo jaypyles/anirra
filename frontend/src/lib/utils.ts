@@ -44,6 +44,11 @@ export async function fetch<T>(
       }
     }
 
+    if (error instanceof Error && error.message === "canceled") {
+      console.error("Search request aborted");
+      return null;
+    }
+
     toast.error("An unexpected error occurred");
     return null;
   }

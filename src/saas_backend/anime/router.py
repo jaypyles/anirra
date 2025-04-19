@@ -27,6 +27,25 @@ async def search_anime(query: str, limit: int = 5, offset: int = 0):
     return [to_dict(anime) for anime in animes]
 
 
+@router.get("/search/tags")
+async def search_anime_tags(query: str, limit: int = 10, offset: int = 0):
+    connection = next(get_db())
+
+    print(f"Searching for {query} with limit {limit} and offset {offset}")
+
+    animes_with_tag = (
+        connection.query(Anime)
+        .filter(Anime.tags.like(f"%{query}%"))  # type: ignore
+        .filter(Anime.status.notlike("UPCOMING"))  # type: ignore
+        .order_by(Anime.rating.desc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
+
+    return [to_dict(anime) for anime in animes_with_tag]
+
+
 @router.get("/recommendations")
 async def get_anime_recommendations(
     ids: list[int] = Query(default=[]), limit: int = Query(default=10)

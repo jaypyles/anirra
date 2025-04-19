@@ -12,7 +12,6 @@ export type AnimeProps = {
 
 export const Anime = ({ anime, description, watchlistStatus }: AnimeProps) => {
   console.log(anime.recommendations.length);
-  console.log(description);
   return (
     <AnimePage.Root anime={anime} className={classes.root}>
       <AnimePage.Header anime={anime} className={classes.header} />
@@ -30,6 +29,7 @@ export const Anime = ({ anime, description, watchlistStatus }: AnimeProps) => {
         <AnimePage.Recommendations
           anime={anime}
           className={classes.recommendations}
+          title={`Other anime like ${anime.title}`}
         />
       </div>
       <AnimePage.Footer anime={anime} className={classes.footer} />
