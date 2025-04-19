@@ -25,9 +25,9 @@ const Header = () => {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/" className="text-xl font-bold text-gray-800">
               <Image
-                src="/images/logo.jpg"
+                src="/images/logo.png"
                 alt="Logo"
-                className="w-10 h-10 rounded-full"
+                className="w-10 h-10"
                 width={40}
                 height={40}
               />

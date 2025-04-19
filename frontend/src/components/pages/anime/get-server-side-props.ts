@@ -15,9 +15,28 @@ export default async function GetServerSideProps(
 
   const animeData = await anime.json();
 
+  const res = await fetch(
+    `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(
+      animeData.title
+    )}&limit=1`
+  );
+
+  const aniListResponse = await res.json();
+  const aniListData = aniListResponse.data?.[0] || null;
+
+  if (anime.status === 401) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       anime: { ...animeData, recommendations: recommendationsData },
+      description: aniListData ? aniListData?.synopsis : null,
       watchlistStatus: animeData.watchlist_status,
     },
   };

@@ -31,8 +31,11 @@ export default async function GetServerSideProps(
   });
 
   const animeWatchedData = await animeWatched.json();
-
-  console.log(animeWatchedData);
+  if (animeWatched.status === 401) {
+    return {
+      redirect: { destination: "/api/auth/signin", permanent: false },
+    };
+  }
 
   const animeRecommendations = await fetch(
     `${process.env.API_URL}/anime/recommendations?${animeWatchedData.anime
@@ -44,6 +47,12 @@ export default async function GetServerSideProps(
       },
     }
   );
+
+  if (animeRecommendations.status === 401) {
+    return {
+      redirect: { destination: "/api/auth/signin", permanent: false },
+    };
+  }
 
   const animeRecommendationsData = await animeRecommendations.json();
 

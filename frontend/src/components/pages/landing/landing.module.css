@@ -1,6 +1,7 @@
 .dashboardContainer {
   padding: 2rem;
   background-color: var(--grey-light);
+  height: 100%;
 }
 
 .dashboardHeader {

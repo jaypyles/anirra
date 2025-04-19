@@ -21,6 +21,7 @@
 .rightColumn {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .metadataItem {
@@ -69,21 +70,23 @@
   margin-top: 0.2rem;
 }
 
-.genreContainer {
+.rightColumnContainer {
   background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 16px;
   height: 100%;
   transition: all 0.2s ease;
+  max-height: 17.5rem;
+  overflow-y: auto;
 }
 
-.genreContainer:hover {
+.rightColumnContainer:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
 }
 
-.genreHeader {
+.rightColumnHeader {
   font-size: 0.8rem;
   font-weight: 600;
   color: #6c757d;
@@ -97,7 +100,6 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   max-height: 30rem;
-  overflow-y: auto;
   font-family: var(--root-font);
 }
 

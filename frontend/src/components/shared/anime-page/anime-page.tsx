@@ -45,6 +45,7 @@ export const Picture = ({ anime, className }: AnimePageProps) => {
 export const Metadata = ({
   anime,
   className,
+  description,
   watchlistStatus,
 }: AnimePageProps) => {
   return (
@@ -84,8 +85,13 @@ export const Metadata = ({
 
         {/* Right Column - Genre Tags */}
         <div className={classes.rightColumn}>
-          <div className={classes.genreContainer}>
-            <div className={classes.genreHeader}>Genres</div>
+          <div className={classes.rightColumnContainer}>
+            <div className={classes.rightColumnHeader}>Description</div>
+            <div className={classes.descriptionContent}>{description}</div>
+          </div>
+
+          <div className={classes.rightColumnContainer}>
+            <div className={classes.rightColumnHeader}>Genres</div>
             <div className={classes.genreTags}>
               {anime.tags.map((tag, index) => (
                 <span key={index} className={classes.genreTag}>
@@ -100,13 +106,12 @@ export const Metadata = ({
   );
 };
 
-export const Recommendations = ({
-  anime,
-  className,
-}: AnimePageProps) => {
+export const Recommendations = ({ anime, className }: AnimePageProps) => {
   return (
     <RecommendationsComponent
-      recommendedAnime={anime.recommendations} className={className} />
+      recommendedAnime={anime.recommendations}
+      className={className}
+    />
   );
 };
 

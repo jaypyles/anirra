@@ -19,6 +19,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <body className="antialiased" style={{ height: "100vh" }}>
         <Main />

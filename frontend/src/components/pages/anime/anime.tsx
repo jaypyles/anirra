@@ -6,11 +6,13 @@ import { WatchlistStatus } from "@/types/watchlist.types";
 
 export type AnimeProps = {
   anime: AnimeType;
+  description?: string;
   watchlistStatus?: WatchlistStatus;
 };
 
-export const Anime = ({ anime, watchlistStatus }: AnimeProps) => {
+export const Anime = ({ anime, description, watchlistStatus }: AnimeProps) => {
   console.log(anime.recommendations.length);
+  console.log(description);
   return (
     <AnimePage.Root anime={anime} className={classes.root}>
       <AnimePage.Header anime={anime} className={classes.header} />
@@ -21,6 +23,7 @@ export const Anime = ({ anime, watchlistStatus }: AnimeProps) => {
             anime={anime}
             watchlistStatus={watchlistStatus}
             className={classes.metadata}
+            description={description}
           />
         </div>
 
