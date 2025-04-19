@@ -8,7 +8,7 @@ export default async function GetServerSideProps(
   );
 
   const recommendations = await fetch(
-    `${process.env.API_URL}/anime/recommendations?ids=${context.params?.id}`
+    `${process.env.API_URL}/anime/recommendations?ids=${context.params?.id}&limit=20`
   );
 
   const recommendationsData = await recommendations.json();

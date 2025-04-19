@@ -12,11 +12,11 @@ type ItemPaginatorProps = {
 
 const responsive = {
   superLargeDesktop: {
-    breakpoint: { max: 4000, min: 2560 },
+    breakpoint: { max: 4000, min: 2300 },
     items: 15,
   },
   desktop: {
-    breakpoint: { max: 2560, min: 1024 },
+    breakpoint: { max: 2300, min: 1024 },
     items: 10,
   },
   tablet: {

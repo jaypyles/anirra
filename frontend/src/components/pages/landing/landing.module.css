@@ -1,5 +1,7 @@
 :global(#__next) {
-  height: unset;
+  @media (max-width: 1920px) {
+    height: unset;
+  }
 }
 
 .dashboardContainer {
