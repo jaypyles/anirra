@@ -61,6 +61,13 @@ async def search_anime_tags(query: str, limit: int = 10, offset: int = 0):
 
     print(f"Searching for {query} with limit {limit} and offset {offset}")
 
+    total_count = (
+        connection.query(Anime)
+        .filter(Anime.tags.like(f"%{query}%"))  # type: ignore
+        .filter(Anime.status.notlike("UPCOMING"))  # type: ignore
+        .count()
+    )
+
     animes_with_tag = (
         connection.query(Anime)
         .filter(Anime.tags.like(f"%{query}%"))  # type: ignore
@@ -71,7 +78,10 @@ async def search_anime_tags(query: str, limit: int = 10, offset: int = 0):
         .all()
     )
 
-    return [to_dict(anime) for anime in animes_with_tag]
+    return {
+        "total_count": total_count,
+        "animes": [to_dict(anime) for anime in animes_with_tag],
+    }
 
 
 @router.get("/recommendations")
