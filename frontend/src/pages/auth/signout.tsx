@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
+import useUser from "@/hooks/useUser";
 
 export default function SignOutPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { updateUser } = useUser();
 
   useEffect(() => {
     const signOutApi = async () => {
@@ -19,6 +21,7 @@ export default function SignOutPage() {
         }
 
         signOut({ callbackUrl: "/" });
+        updateUser({});
       } catch (err) {
         console.error("Error during sign-out API call:", err);
         setError(err instanceof Error ? err.message : "Unknown error");

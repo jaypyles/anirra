@@ -18,9 +18,11 @@ export const Landing = ({ stats, recommendedAnime = [] }: LandingProps) => {
   const { data: session } = useSession();
   const { user } = useUser();
 
-  console.log(recommendedAnime);
-
-  if (!session || !user) {
+  if (
+    !session ||
+    !user ||
+    (!Object.keys(stats).length && recommendedAnime.length === 0)
+  ) {
     return (
       <div className={classes.notLoggedIn}>
         <h2>Please log in to view your anime dashboard</h2>

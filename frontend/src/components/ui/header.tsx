@@ -51,7 +51,7 @@ const Header = () => {
             </button>
           </div>
 
-          {user && user.id && (
+          {user && user.username && (
             <nav className="hidden md:flex space-x-10">
               <Link
                 href="/watchlist"

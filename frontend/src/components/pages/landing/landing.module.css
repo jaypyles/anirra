@@ -101,6 +101,11 @@
   font-size: 0.9rem;
 }
 
+.genreItem:hover {
+  background-color: var(--purple-dark);
+  color: white;
+}
+
 .recommendedSection {
   margin-top: 1rem;
   color: black;
