@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import axios, { AxiosError, AxiosHeaders } from "axios";
 
 const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.API_URL || "http://localhost:8000",
 });
 
 const getJwt = async (req: NextApiRequest) => {

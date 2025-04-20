@@ -19,19 +19,25 @@ export default async function GetServerSideProps(
 
   console.log(jwt);
 
-  const stats = await fetch(`${process.env.API_URL}/anime/stats`, {
-    headers: {
-      Authorization: `Bearer ${jwt.access_token}`,
-    },
-  });
+  const stats = await fetch(
+    `${process.env.API_URL || "http://localhost:8000"}/anime/stats`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwt.access_token}`,
+      },
+    }
+  );
 
   const statsData = await stats.json();
 
-  const animeWatched = await fetch(`${process.env.API_URL}/anime/watchlists`, {
-    headers: {
-      Authorization: `Bearer ${jwt.access_token}`,
-    },
-  });
+  const animeWatched = await fetch(
+    `${process.env.API_URL || "http://localhost:8000"}/anime/watchlists`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwt.access_token}`,
+      },
+    }
+  );
 
   const animeWatchedData = await animeWatched.json();
   if (animeWatched.status === 401) {
@@ -44,7 +50,9 @@ export default async function GetServerSideProps(
   }
 
   const animeRecommendations = await fetch(
-    `${process.env.API_URL}/anime/recommendations?${animeWatchedData.anime
+    `${
+      process.env.API_URL || "http://localhost:8000"
+    }/anime/recommendations?${animeWatchedData.anime
       .map((anime: Anime) => `ids=${anime.id}`)
       .join("&")}&limit=20`,
     {

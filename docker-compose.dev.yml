@@ -1,0 +1,25 @@
+services:
+  anirra:
+    container_name: anirra
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash /start.sh
+    env_file: .env
+    environment:
+      - APP_MODE=DEV
+    volumes:
+      - ./frontend/public:/frontend/public
+      - ./frontend/src:/frontend/src
+      - ./frontend/tsconfig.json:/frontend/tsconfig.json
+      - ./frontend/tailwind.config.ts:/frontend/tailwind.config.ts
+      - ./frontend/postcss.config.mjs:/frontend/postcss.config.mjs
+      - ./frontend/next.config.ts:/frontend/next.config.ts
+      - ./frontend/eslint.config.mjs:/frontend/eslint.config.mjs
+      - ./frontend/components.json:/frontend/components.json
+      - ./src:/project/src
+      - ./data:/project/data
+      - ./config.yaml:/project/config.yaml
+    ports:
+      - 3000:3000
+      - 8000:8000

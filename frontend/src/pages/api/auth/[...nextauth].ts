@@ -25,15 +25,18 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const response = await fetch(`${process.env.API_URL}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({
-            username: credentials?.username || "",
-            password: credentials?.password || "",
-          }).toString(),
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${process.env.API_URL || "http://localhost:8000"}/login`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              username: credentials?.username || "",
+              password: credentials?.password || "",
+            }).toString(),
+            credentials: "include",
+          }
+        );
 
         if (response.status === 401) {
           throw new Error("Invalid credentials");

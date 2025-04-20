@@ -96,6 +96,11 @@ async def get_watchlists(user: User = Depends(UserManager.get_user_from_header))
     connection = next(get_db())
     watchlist = connection.query(Watchlist).filter(Watchlist.user_id == user.id).first()  # type: ignore
 
+    if not watchlist:
+        watchlist = Watchlist(user_id=user.id)
+        connection.add(watchlist)
+        connection.commit()
+
     watchlist_to_anime = connection.query(WatchlistToAnime).filter(WatchlistToAnime.watchlist_id == watchlist.id).all()  # type: ignore
 
     animes = [

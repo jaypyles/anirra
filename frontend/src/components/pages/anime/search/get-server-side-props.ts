@@ -21,7 +21,7 @@ export default async function getServerSideProps(
 
   const url = new URL(
     `${
-      process.env.API_URL
+      process.env.API_URL || "http://localhost:8000"
     }/anime/search?limit=10&total_count=true&query=${encodeURIComponent(
       searchTerm
     )}`

@@ -1,4 +1,5 @@
 import hashlib
+import os
 from saas_backend.auth.database import get_db
 from saas_backend.auth.models import (
     Anime,
@@ -27,6 +28,12 @@ def on_startup():
         )
 
     connection.add(admin_user)
+
+    if os.getenv("APP_MODE") == "PROD":
+        print("Production mode, skipping watchlist setup...")
+        connection.commit()
+        connection.close()
+        return
 
     watchlist = connection.query(Watchlist).filter(Watchlist.user_id == admin_user.id).first()  # type: ignore
 
