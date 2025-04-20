@@ -79,5 +79,6 @@ radarr:
 
 ## Coming Soon
 
+- **Mobile Support**: Simplified UI for mobile viewing
 - **Watchlist Rating**: Rate the anime and get better recommendations based off of what you like
 - **Jellyfin Integration**: Automatically sync the anime you are watching on Jellyfin
