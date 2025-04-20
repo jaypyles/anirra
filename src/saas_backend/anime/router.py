@@ -42,7 +42,9 @@ async def search_anime(
     animes = connection.query(Anime).filter(Anime.title.in_(results)).all()  # type: ignore
     extra_animes = connection.query(Anime).filter(Anime.extra_titles.like(f"%{query}%")).all()  # type: ignore
 
-    animes = [*animes, *extra_animes]
+    animes = list(
+        {anime.title.lower(): anime for anime in [*animes, *extra_animes]}.values()
+    )
 
     if total_count:
         return {

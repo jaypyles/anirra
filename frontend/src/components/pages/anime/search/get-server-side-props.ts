@@ -6,6 +6,7 @@ export default async function getServerSideProps(
 ) {
   const jwt = await getJwt(context.req as NextApiRequest);
   const term = context.params?.term;
+  const offset = context.query?.offset;
 
   const searchTerm = Array.isArray(term) ? term.join("/") : term;
 
@@ -18,20 +19,28 @@ export default async function getServerSideProps(
     };
   }
 
-  const animeSearch = await fetch(
+  const url = new URL(
     `${
       process.env.API_URL
     }/anime/search?limit=10&total_count=true&query=${encodeURIComponent(
       searchTerm
-    )}`,
-    {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    }
+    )}`
   );
 
+  console.log(`offset: ${offset}`);
+
+  if (offset) {
+    url.searchParams.set("offset", offset as string);
+  }
+
+  const animeSearch = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+
   const animeSearchData = await animeSearch.json();
+
   console.log(animeSearchData);
 
   return {

@@ -13,12 +13,37 @@ export type SearchTermProps = {
 
 export const SearchTerm = ({ animeSearch, totalCount }: SearchTermProps) => {
   const router = useRouter();
-  const { term } = router.query;
+  const { term, offset } = router.query;
+
+  const itemsPerPage = 10;
 
   const searchTerm = useMemo(() => {
     if (!term) return "";
     return Array.isArray(term) ? term.join("/") : term;
   }, [term]);
+
+  const currentPage = useMemo(() => {
+    const offsetValue = parseInt(offset as string);
+    return isNaN(offsetValue) ? 0 : offsetValue / itemsPerPage;
+  }, [offset]);
+
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+  const handlePageChange = (newPage: number) => {
+    router.push(`/anime/search/${term}?offset=${newPage * itemsPerPage}`);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      handlePageChange(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      handlePageChange(currentPage + 1);
+    }
+  };
 
   return (
     <>
@@ -34,8 +59,22 @@ export const SearchTerm = ({ animeSearch, totalCount }: SearchTermProps) => {
         </SearchHeader>
         <div className={styles.resultsContainer}>
           {animeSearch.map((anime) => (
-            <SearchResult key={anime.id} anime={anime} />
+            <SearchResult key={anime.title} anime={anime} />
           ))}
+        </div>
+        <div className={styles.pagination}>
+          <button onClick={handlePreviousPage} disabled={currentPage === 0}>
+            Previous
+          </button>
+          <span className={styles.paginationText}>
+            Page {currentPage + 1} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage >= totalPages - 1}
+          >
+            Next
+          </button>
         </div>
       </div>
     </>

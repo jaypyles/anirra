@@ -45,3 +45,34 @@
   height: 100%;
   overflow: auto;
 }
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pagination button {
+  background-color: var(--purple-light);
+  color: var(--grey-light);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: var(--purple-dark);
+}
+
+.pagination button:disabled {
+  background-color: var(--purple-disabled);
+  color: var(--grey-light);
+  cursor: not-allowed;
+}
+
+.paginationText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--grey-dark);
+}
