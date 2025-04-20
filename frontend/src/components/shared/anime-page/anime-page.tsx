@@ -33,7 +33,10 @@ export const Header = ({ anime, className }: AnimePageProps) => {
     <div className={cn(classes.header, className)}>
       <div className={classes.headerContent}>
         <h1 className={classes.title}>{anime.title}</h1>
-        <SonarrIntegration searchTerm={anime.title} />
+        <div className={classes.integrationContainer}>
+          <SonarrIntegration searchTerm={anime.title} type="sonarr" />
+          <SonarrIntegration searchTerm={anime.title} type="radarr" />
+        </div>
       </div>
     </div>
   );

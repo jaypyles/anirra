@@ -60,7 +60,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: 16rem;
+  height: 17rem;
 }
 
 .statCard:hover {
@@ -102,7 +102,7 @@
 }
 
 .recommendedSection {
-  margin-top: 2rem;
+  margin-top: 1rem;
   color: black;
 }
 

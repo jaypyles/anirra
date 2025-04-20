@@ -13,46 +13,79 @@ import { useState } from "react";
 import {
   SonarrAddOptions,
   SonarrAddRequest,
-} from "@/lib/integration-service/functions/add";
+} from "@/lib/integration-service/functions/add-sonarr";
 
 import classes from "./sonarr-integration.module.css";
 import { Checkbox } from "@mui/material";
 import { Label } from "@/components/ui/label";
 import { SonarrResult } from "@/types/sonarr-result.types";
 import Image from "next/image";
+import {
+  RadarrAddOptions,
+  RadarrAddRequest,
+} from "@/lib/integration-service/functions/add-radarr";
+import { RadarrResult } from "@/types/radarr-result.types";
 
 export type SonarrIntegrationProps = {
   searchTerm: string;
+  type: "sonarr" | "radarr";
 };
 
-export const SonarrIntegration = ({ searchTerm }: SonarrIntegrationProps) => {
-  const [results, setResults] = useState<SonarrResult[]>([]);
+export const SonarrIntegration = ({
+  searchTerm,
+  type,
+}: SonarrIntegrationProps) => {
+  const isSonarr = type === "sonarr";
+  const [results, setResults] = useState<SonarrResult[] | RadarrResult[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [addLoading, setAddLoading] = useState<{ [key: string]: boolean }>({});
   const [addSuccess, setAddSuccess] = useState<{ [key: string]: boolean }>({});
-  const [options, setOptions] = useState<SonarrAddOptions>({
+  const [sonarrOptions, setSonarrOptions] = useState<SonarrAddOptions>({
     monitor: "all",
     searchForMissingEpisodes: false,
     ignoreEpisodesWithFiles: true,
     ignoreEpisodesWithoutFiles: true,
   });
 
+  const [radarrOptions, setRadarrOptions] = useState<RadarrAddOptions>({
+    monitor: "movieOnly",
+    searchForMovie: false,
+  });
+
   const handleSearch = async (query: string) => {
     setSearchLoading(true);
-    const response = await IntegrationService.searchSonarr(query);
-    setResults(response ?? []);
+    if (type === "sonarr") {
+      const response = await IntegrationService.searchSonarr(query);
+      setResults(response ?? []);
+    } else {
+      const response = await IntegrationService.searchRadarr(query);
+      setResults(response ?? []);
+    }
     setSearchLoading(false);
   };
 
-  const handleAdd = async (series: SonarrResult, index: number) => {
+  const handleAdd = async (
+    series: SonarrResult | RadarrResult,
+    index: number
+  ) => {
     setAddLoading((prev) => ({ ...prev, [index]: true }));
-    await IntegrationService.addSonarrSeries({
-      ...(series as unknown as SonarrAddRequest),
-      qualityProfileId: 1,
-      rootFolderPath: "/tv",
-      monitored: options.searchForMissingEpisodes,
-      addOptions: options,
-    });
+    if (isSonarr) {
+      await IntegrationService.addSonarrSeries({
+        ...(series as unknown as SonarrAddRequest),
+        qualityProfileId: 1,
+        rootFolderPath: "/tv",
+        monitored: sonarrOptions.searchForMissingEpisodes,
+        addOptions: sonarrOptions,
+      });
+    } else {
+      await IntegrationService.addRadarrSeries({
+        ...(series as unknown as RadarrAddRequest),
+        qualityProfileId: 1,
+        rootFolderPath: "/movies",
+        monitored: radarrOptions.searchForMovie,
+        addOptions: radarrOptions,
+      });
+    }
     setAddLoading((prev) => ({ ...prev, [index]: false }));
     setAddSuccess((prev) => ({ ...prev, [index]: true }));
   };
@@ -62,19 +95,19 @@ export const SonarrIntegration = ({ searchTerm }: SonarrIntegrationProps) => {
       <DialogTrigger className={classes.trigger}>
         <Image
           className={classes.sonarrIcon}
-          src="/images/sonarr-icon.png"
-          alt="Sonarr"
+          src={isSonarr ? "/images/sonarr-icon.png" : "/images/radarr-icon.png"}
+          alt={isSonarr ? "Sonarr" : "Radarr"}
           width={40}
           height={40}
         />
       </DialogTrigger>
       <DialogContent className={classes.dialog}>
         <DialogHeader>
-          <DialogTitle>Add a series</DialogTitle>
+          <DialogTitle>Add a {isSonarr ? "series" : "movie"}</DialogTitle>
         </DialogHeader>
         <Input
           type="text"
-          placeholder="Search for a series"
+          placeholder={`Search for a ${isSonarr ? "series" : "movie"}`}
           value={searchTerm}
         />
 
@@ -83,14 +116,23 @@ export const SonarrIntegration = ({ searchTerm }: SonarrIntegrationProps) => {
         </Button>
         <div className={classes.options}>
           <div className={classes.option}>
-            <Label>Search for missing episodes</Label>
+            <Label>Search for missing {isSonarr ? "episodes" : "movies"}</Label>
             <Checkbox
-              checked={options.searchForMissingEpisodes}
+              checked={
+                isSonarr
+                  ? sonarrOptions.searchForMissingEpisodes
+                  : radarrOptions.searchForMovie
+              }
               onChange={(e) =>
-                setOptions({
-                  ...options,
-                  searchForMissingEpisodes: e.target.checked,
-                })
+                isSonarr
+                  ? setSonarrOptions({
+                      ...sonarrOptions,
+                      searchForMissingEpisodes: e.target.checked,
+                    })
+                  : setRadarrOptions({
+                      ...radarrOptions,
+                      searchForMovie: e.target.checked,
+                    })
               }
             />
           </div>
@@ -113,9 +155,24 @@ export const SonarrIntegration = ({ searchTerm }: SonarrIntegrationProps) => {
                   <div>{result.title}</div>
                   <div className={classes.resultTitleTextStats}>
                     <span className={classes.star}>★</span>{" "}
-                    <span>{result.ratings.value}</span>
+                    <span>
+                      {isSonarr
+                        ? (result as SonarrResult).ratings.value
+                        : (result as RadarrResult).ratings.tmdb.value.toFixed(
+                            2
+                          ) || "N/A"}
+                    </span>
                     <span>•</span>
-                    <span>{result.statistics.seasonCount} seasons</span>
+                    {isSonarr ? (
+                      <span>
+                        {(result as SonarrResult).statistics.seasonCount}{" "}
+                        seasons
+                      </span>
+                    ) : (
+                      <span>
+                        {(result as RadarrResult).genres.slice(0, 3).join(", ")}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

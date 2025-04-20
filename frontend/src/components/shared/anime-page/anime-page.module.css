@@ -178,8 +178,14 @@
 .title {
   flex-grow: 1;
   text-align: center;
+  margin-left: 6rem;
 }
 
 .integration {
   margin-left: auto;
+}
+
+.integrationContainer {
+  display: flex;
+  gap: 1rem;
 }

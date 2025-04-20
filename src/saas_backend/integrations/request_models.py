@@ -29,3 +29,19 @@ class SonarrAddRequest(BaseModel):
     rootFolderPath: str
     monitored: bool
     addOptions: SonarrAddOptions
+
+
+class RadarrAddOptions(BaseModel):
+    monitor: str
+    searchForMovie: bool
+
+
+class RadarrAddRequest(BaseModel):
+    tmdbId: int
+    title: str
+    titleSlug: str
+    qualityProfileId: int
+    rootFolderPath: str
+    monitored: bool
+    images: list[SonarrImage]
+    addOptions: RadarrAddOptions
