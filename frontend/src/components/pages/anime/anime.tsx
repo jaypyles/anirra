@@ -3,6 +3,7 @@ import { AnimePage } from "@/components/shared/anime-page/anime-page";
 
 import classes from "./anime.module.css";
 import { WatchlistStatus } from "@/types/watchlist.types";
+import Head from "next/head";
 
 export type AnimeProps = {
   anime: AnimeType;
@@ -11,28 +12,33 @@ export type AnimeProps = {
 };
 
 export const Anime = ({ anime, description, watchlistStatus }: AnimeProps) => {
-  console.log(anime.recommendations.length);
   return (
-    <AnimePage.Root anime={anime} className={classes.root}>
-      <AnimePage.Header anime={anime} className={classes.header} />
-      <div className={classes.body}>
-        <div className={classes.contentContainer}>
-          <AnimePage.Picture anime={anime} className={classes.picture} />
-          <AnimePage.Metadata
+    <>
+      <Head>
+        <title>{anime.title || "Anime"}</title>
+      </Head>
+
+      <AnimePage.Root anime={anime} className={classes.root}>
+        <AnimePage.Header anime={anime} className={classes.header} />
+        <div className={classes.body}>
+          <div className={classes.contentContainer}>
+            <AnimePage.Picture anime={anime} className={classes.picture} />
+            <AnimePage.Metadata
+              anime={anime}
+              watchlistStatus={watchlistStatus}
+              className={classes.metadata}
+              description={description}
+            />
+          </div>
+
+          <AnimePage.Recommendations
             anime={anime}
-            watchlistStatus={watchlistStatus}
-            className={classes.metadata}
-            description={description}
+            className={classes.recommendations}
+            title={`Other anime like ${anime.title}`}
           />
         </div>
-
-        <AnimePage.Recommendations
-          anime={anime}
-          className={classes.recommendations}
-          title={`Other anime like ${anime.title}`}
-        />
-      </div>
-      <AnimePage.Footer anime={anime} className={classes.footer} />
-    </AnimePage.Root>
+        <AnimePage.Footer anime={anime} className={classes.footer} />
+      </AnimePage.Root>
+    </>
   );
 };

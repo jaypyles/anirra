@@ -50,7 +50,6 @@ WORKDIR /project
 COPY pyproject.toml pdm.lock /project/
 COPY ./src /project/src/
 COPY ./data /project/data/
-COPY ./config.yaml /project/config.yaml
 
 RUN pdm install && \
     rm -rf /root/.cache/pip

@@ -23,9 +23,6 @@ export default async function GetServerSideProps(
 
   const watchlistData = await watchlist.json();
 
-  console.log("watchlistData");
-  console.log(watchlistData);
-
   return {
     props: {
       watchlist: watchlistData,

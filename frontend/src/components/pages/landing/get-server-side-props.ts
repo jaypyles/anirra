@@ -17,8 +17,6 @@ export default async function GetServerSideProps(
     };
   }
 
-  console.log(jwt);
-
   const stats = await fetch(
     `${process.env.API_URL || "http://localhost:8000"}/anime/stats`,
     {

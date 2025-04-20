@@ -7,7 +7,6 @@ const useUser = () => {
   const dispatch = useDispatch();
 
   const updateUser = (userData: unknown) => {
-    console.log("updateUser", userData);
     dispatch(setUser(userData));
   };
 

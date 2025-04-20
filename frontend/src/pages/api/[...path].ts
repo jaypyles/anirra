@@ -42,7 +42,6 @@ export default async function handler(
   try {
     // Set request specific items
     let forwardedBody = body;
-    console.log(body);
 
     if (method !== "GET" && method !== "DELETE") {
       const contentType = headers.get("Content-Type") as string;
@@ -60,13 +59,8 @@ export default async function handler(
     }
 
     let response;
-    console.log(fullPath);
-    console.log(headers);
-    console.log("forwardedBody");
-    console.log(forwardedBody);
 
     try {
-      console.log(`Forwarding request to ${fullPath}`);
       response = await api.request({
         method: method,
         url: fullPath,

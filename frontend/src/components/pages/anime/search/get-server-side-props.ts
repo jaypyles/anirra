@@ -27,8 +27,6 @@ export default async function getServerSideProps(
     )}`
   );
 
-  console.log(`offset: ${offset}`);
-
   if (offset) {
     url.searchParams.set("offset", offset as string);
   }
@@ -40,8 +38,6 @@ export default async function getServerSideProps(
   });
 
   const animeSearchData = await animeSearch.json();
-
-  console.log(animeSearchData);
 
   return {
     props: {
