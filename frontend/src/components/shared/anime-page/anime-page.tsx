@@ -19,6 +19,7 @@ import { StarIcon } from "lucide-react";
 import { Recommendations as RecommendationsComponent } from "../recommendations/recommendations";
 import Link from "next/link";
 import { SonarrIntegration } from "../sonarr-integration/sonarr-integration";
+import useUser from "@/hooks/useUser";
 export type AnimePageProps = AnimeProps & {
   children?: React.ReactNode;
   className?: string;
@@ -29,14 +30,22 @@ export const Root = ({ children, className }: AnimePageProps) => {
 };
 
 export const Header = ({ anime, className }: AnimePageProps) => {
+  const { user } = useUser();
+
   return (
     <div className={cn(classes.header, className)}>
       <div className={classes.headerContent}>
         <h1 className={classes.title}>{anime.title}</h1>
-        <div className={classes.integrationContainer}>
-          <SonarrIntegration searchTerm={anime.title} type="sonarr" />
-          <SonarrIntegration searchTerm={anime.title} type="radarr" />
-        </div>
+        {user.settings && user?.settings.length > 0 && (
+          <div className={classes.integrationContainer}>
+            {user?.settings.includes("sonarr") && (
+              <SonarrIntegration searchTerm={anime.title} type="sonarr" />
+            )}
+            {user?.settings.includes("radarr") && (
+              <SonarrIntegration searchTerm={anime.title} type="radarr" />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

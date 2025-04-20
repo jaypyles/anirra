@@ -8,7 +8,7 @@ export default async function GetServerSideProps(
 
   if (!jwt) {
     return {
-      redirect: { destination: "/api/auth/signin", permanent: false },
+      redirect: { destination: "/", permanent: false },
     };
   }
 

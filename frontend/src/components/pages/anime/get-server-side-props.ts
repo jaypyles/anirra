@@ -27,7 +27,7 @@ export default async function GetServerSideProps(
   if (anime.status === 401) {
     return {
       redirect: {
-        destination: "/api/auth/signin",
+        destination: "/",
         permanent: false,
       },
     };

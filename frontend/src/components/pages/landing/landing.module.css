@@ -174,8 +174,13 @@
 .notLoggedIn {
   text-align: center;
   padding: 4rem 2rem;
-  max-width: 500px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--grey-light);
+  width: 100%;
 }
 
 .notLoggedIn h2 {

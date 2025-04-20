@@ -5,6 +5,7 @@ import AuthButton from "../auth/button";
 import AuthModal from "../auth/login-modal";
 import Image from "next/image";
 import { DebounceSearchBar } from "../shared/debounce-search-bar";
+import useUser from "@/hooks/useUser";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +18,8 @@ const Header = () => {
   const toggleAuthModal = () => {
     setIsAuthModalOpen(!isAuthModalOpen);
   };
+
+  const { user } = useUser();
 
   return (
     <header className="bg-white shadow-sm h-16">
@@ -48,15 +51,17 @@ const Header = () => {
             </button>
           </div>
 
-          <nav className="hidden md:flex space-x-10">
-            <Link
-              href="/watchlist"
-              className="text-base font-medium text-gray-900 hover:text-gray-700 flex items-center gap-2"
-            >
-              <TableProperties />
-              <span>Watchlist</span>
-            </Link>
-          </nav>
+          {user && user.id && (
+            <nav className="hidden md:flex space-x-10">
+              <Link
+                href="/watchlist"
+                className="text-base font-medium text-gray-900 hover:text-gray-700 flex items-center gap-2"
+              >
+                <TableProperties />
+                <span>Watchlist</span>
+              </Link>
+            </nav>
+          )}
 
           <nav className="hidden md:flex space-x-10">
             <AuthButton toggleAuthModal={toggleAuthModal} />

@@ -11,6 +11,8 @@ import {
 import { getSession, signIn } from "next-auth/react";
 import useUser from "@/hooks/useUser";
 import { toast } from "react-toastify";
+import { SettingsService } from "@/lib/settings-service";
+import { useRouter } from "next/router";
 
 export type AuthModalProps = {
   isOpen: boolean;
@@ -22,6 +24,7 @@ export default function AuthModal({ isOpen, setIsOpen }: AuthModalProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { updateUser } = useUser();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,11 +50,16 @@ export default function AuthModal({ isOpen, setIsOpen }: AuthModalProps) {
           return;
         }
 
+        const settings = await SettingsService.checkSettings();
+
         updateUser({
           username,
           creditBalance: session?.user?.startingCredits,
+          settings,
         });
+
         setIsOpen(false);
+        router.reload();
       }
     } else {
       const response = await fetch("/api/register", {

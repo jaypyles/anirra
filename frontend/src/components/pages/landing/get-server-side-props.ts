@@ -10,7 +10,10 @@ export default async function GetServerSideProps(
 
   if (!jwt) {
     return {
-      redirect: { destination: "/api/auth/signin", permanent: false },
+      props: {
+        stats: {},
+        recommendedAnime: [],
+      },
     };
   }
 
@@ -33,7 +36,10 @@ export default async function GetServerSideProps(
   const animeWatchedData = await animeWatched.json();
   if (animeWatched.status === 401) {
     return {
-      redirect: { destination: "/api/auth/signin", permanent: false },
+      props: {
+        stats: statsData,
+        recommendedAnime: [],
+      },
     };
   }
 
@@ -50,7 +56,7 @@ export default async function GetServerSideProps(
 
   if (animeRecommendations.status === 401) {
     return {
-      redirect: { destination: "/api/auth/signin", permanent: false },
+      redirect: { destination: "/", permanent: false },
     };
   }
 
