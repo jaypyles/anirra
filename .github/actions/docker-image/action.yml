@@ -42,4 +42,6 @@ runs:
       context: .
       file: ${{ inputs.dockerfile }}
       push: true
-      tags: ${{ inputs.dockerhub_username }}/${{inputs.dockerhub_repo}}:${{ env.VERSION }}
+      tags: 
+        - ${{ inputs.dockerhub_username }}/${{inputs.dockerhub_repo}}:${{ env.VERSION }}
+        - ${{ inputs.dockerhub_username }}/${{inputs.dockerhub_repo}}:latest

@@ -1,6 +1,7 @@
 services:
   anirra:
     container_name: anirra
+    image: jpyles0524/anirra:latest
     build:
       context: .
       dockerfile: Dockerfile
