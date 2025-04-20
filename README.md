@@ -52,7 +52,7 @@ But if you would like to, you can create a new user with a more secure password.
 
 ## Configuration
 
-There are a few set of environment variables you can use to customize the app. 
+There are a few set of environment variables you can use to customize the app (all are completely optional). 
 
 ```
 APP_MODE=(DEV || PROD) # defaults to PROD in the docker-compose.yml
