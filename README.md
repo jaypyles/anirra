@@ -76,3 +76,8 @@ radarr:
   url: http://<ip_or_address>:<port>
   api_key: 123456
 ```
+
+## Coming Soon
+
+- **Watchlist Rating**: Rate the anime and get better recommendations based off of what you like
+- **Jellyfin Integration**: Automatically sync the anime you are watching on Jellyfin
