@@ -1,32 +1,78 @@
-# SaaS Template with Authentication
+# Anirra
 
-This is a template for a SaaS application with authentication.
+Anirra is a completely self-hosted anime watchlist, search, and recommendations app. It allows anime enthusiasts to manage their watchlists, discover new anime, and receive personalized recommendations, all from a single platform.
 
-The frontend is built with Next.js and Tailwind CSS.
+## Features
 
-The backend is built with FastAPI and SQLAlchemy.
+- **Watchlist Management**: Keep track of the anime you plan to watch, are currently watching, or have completed.
+- **Search Functionality**: Easily search for anime by title or tags.
+- **Personalized Recommendations**: Get suggestions based on your watchlist and preferences.
+- **Integration with Sonarr and Radarr**: Seamlessly add series and movies to your media server.
 
-This template allows for a user to sign up, sign in, and sign out. It comes with a prebuilt user store made in redux. All of the session logic is handled in the backend.
+## Screenshots
 
-This template focuses on a credit system where users can purchase credits to use the application, with the ability to make an API key to use the application without the frontend. Though this can be easily modified to use a subscription model, by forcing the `requires_credit` function to not decrement the user's credit balance, to act as a subscription.
+To give you a better idea of what Anirra looks like, here are some screenshots of the app in action:
 
-## Environment Variables
+### Main Page (Logged In)
+![Main Page](docs/images/main-page-logged-in.png)
 
-The following environment variables are required:
+### Anime Page
+![Anime Page](docs/images/anime-page.png)
 
-- `JWT_SECRET`: A secret key for signing and verifying JWT tokens
-- `NEXTAUTH_SECRET`: A secret key for signing and verifying NextAuth tokens
-- `DATABASE_URL`: A URL for the database
+### Search Page
+![Search Page](docs/images/search-page.png)
 
-The `JWT_SECRET` on the frontend and backend must be the same.
+### Watchlist Page
+![Watchlist Page](docs/images/watchlist-page.png)
 
-## Getting Started
+### Sonarr Integration
+![Sonarr](docs/images/sonarr.png)
 
-1. Clone the repository
-2. Run `pdm install` to install the backend dependencies
-3. Run `cd frontend` and then `npm install` to install the frontend dependencies
+### Radarr Integration
+![Radarr](docs/images/radarr.png)
 
-## Running the Application
+## Launching the App
 
-1. Run `make build up` to build and start the containers
-2. Visit `http://localhost:3000` to view the frontend
+To launch the app, use the `docker-compose.yml` file located in the root directory of the project. Ensure you have `make` and `docker` installed, then run the following command in your terminal:
+
+```bash
+make pull up
+```
+
+### Default User Credentials
+
+The default user credentials are:
+
+```
+user: admin
+password: admin
+```
+
+But if you would like to, you can create a new user with a more secure password.
+
+## Configuration
+
+There are a few set of environment variables you can use to customize the app. 
+
+```
+APP_MODE=(DEV || PROD) # defaults to PROD in the docker-compose.yml
+DATABASE_URL=whatever you want here if you don't want to use the sqlite database that the app comes with
+JSON_DATA_PATH=wherever the `anime_offline_database.json` is located, by default its at /data
+JWT_SECRET=a secret used to encode the user jwt
+API_URL=if you somehow got the api to run anywhere else
+NEXTAUTH_SECRET=a secret used to encode the next jwt
+```
+
+### Sonarr and Radarr configuration
+
+Setup the `config.yaml` at the root of the project:
+
+```yaml
+sonarr:
+  url: http://<ip_or_address>:<port>
+  api_key: 123456
+
+radarr:
+  url: http://<ip_or_address>:<port>
+  api_key: 123456
+```
