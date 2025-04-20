@@ -9,6 +9,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./data:/app/data
+      - ./config.yaml:/app/config.yaml
     ports:
       - 8000:8000
   anime-frontend:

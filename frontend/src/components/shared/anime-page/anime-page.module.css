@@ -167,3 +167,19 @@
 .inputLabel.MuiFormLabel-root {
   color: var(--purple-primary);
 }
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.integration {
+  margin-left: auto;
+}

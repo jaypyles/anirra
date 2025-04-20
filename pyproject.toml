@@ -18,6 +18,8 @@ dependencies = [
     "rapidfuzz>=3.13.0",
     "numpy>=2.2.4",
     "scikit-learn>=1.6.1",
+    "pyaml>=25.1.0",
+    "requests>=2.32.3",
 ]
 requires-python = "==3.12.*"
 

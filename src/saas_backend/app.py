@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from saas_backend.anime import anime_router
 from saas_backend.startup import on_startup
+from saas_backend.integrations import integrations_router
 
 _ = load_dotenv()
 
@@ -12,7 +13,7 @@ app = FastAPI()
 
 app.include_router(auth_router)
 app.include_router(anime_router)
-
+app.include_router(integrations_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

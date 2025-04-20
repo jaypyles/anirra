@@ -161,3 +161,4 @@ cython_debug/
 
 *.db
 data
+config.yaml

@@ -57,6 +57,7 @@ export default async function handler(
     let response;
     console.log(fullPath);
     console.log(headers);
+    console.log("forwardedBody");
     console.log(forwardedBody);
 
     try {

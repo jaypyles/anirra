@@ -1,0 +1,51 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.dialog {
+  background-color: var(--grey-light);
+  color: var(--grey-dark);
+}
+
+.dialog button {
+  background-color: var(--purple-light);
+}
+
+.dialog button:hover {
+  background-color: var(--purple-dark);
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resultTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.resultTitle img {
+  border-radius: 0.15rem;
+}
+
+.resultTitleTextStats {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.star {
+  color: #ffd700;
+}
+
+.sonarrIcon {
+  border-radius: 2rem;
+  border: 1px solid var(--grey-dark);
+}
