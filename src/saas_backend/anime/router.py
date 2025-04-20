@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import JSONResponse
-from rapidfuzz import process
+from rapidfuzz import process, fuzz
+from sqlalchemy.orm import Session
 
 from saas_backend.anime.request_models import UpdateWatchlist
 from saas_backend.auth.database import get_db
@@ -13,18 +14,43 @@ router = APIRouter(prefix="/anime", tags=["anime"])
 
 
 @router.get("/search")
-async def search_anime(query: str, limit: int = 5, offset: int = 0):
-    connection = next(get_db())
+async def search_anime(
+    query: str, limit: int = 5, offset: int = 0, total_count: bool = False
+):
+    connection: Session = next(get_db())
 
     print(f"Searching for {query} with limit {limit} and offset {offset}")
 
-    anime = [anime.title for anime in connection.query(Anime).all()]
+    animes_from_db = connection.query(Anime).all()
 
-    results = [result[0] for result in process.extract(query, anime, limit=limit)]
+    anime_titles = [anime.title for anime in animes_from_db]
+    anime_extra_titles = [anime.extra_titles for anime in animes_from_db]
+
+    combined_titles = [
+        *anime_titles,
+        *[title for titles in anime_extra_titles for title in titles],
+    ]
+
+    print("Searching for fuzzy matches")
+    results = process.extract(query, combined_titles, scorer=fuzz.ratio, limit=limit)
+
+    print(results)
+
+    results = sorted(results, key=lambda x: x[1], reverse=True)
+    results = [result[0] for result in results]
 
     animes = connection.query(Anime).filter(Anime.title.in_(results)).all()  # type: ignore
+    extra_animes = connection.query(Anime).filter(Anime.extra_titles.like(f"%{query}%")).all()  # type: ignore
 
-    return [to_dict(anime) for anime in animes]
+    animes = [*animes, *extra_animes]
+
+    if total_count:
+        return {
+            "animes": [to_dict(anime) for anime in animes][offset : offset + limit],
+            "total_count": len(animes),
+        }
+
+    return [to_dict(anime) for anime in animes][offset : offset + limit]
 
 
 @router.get("/search/tags")

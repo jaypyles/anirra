@@ -35,6 +35,7 @@ def load_database():
             episode_count=anime.get("episodes"),
             tags=anime.get("tags", []),
             sources=anime.get("sources", []),
+            extra_titles=anime.get("synonyms", []),
             reccomendation_string=f"{anime.get('title')} {anime.get('season')} {anime.get('year')} {' '.join(anime.get('tags', []))}",
         )
 

@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import useUser from "@/hooks/useUser";
 import { Anime } from "@/types/anime.types";
 import { Recommendations } from "@/components/shared/recommendations/recommendations";
+import Link from "next/link";
 
 export type LandingProps = {
   stats: {
@@ -60,17 +61,21 @@ export const Landing = ({ stats, recommendedAnime = [] }: LandingProps) => {
           <div className={classes.genreListContainer}>
             <ul className={classes.genreList}>
               {stats.most_common_genres.slice(0, 3).map(([genre], index) => (
-                <li key={index} className={classes.genreItem}>
-                  {genre}
-                </li>
+                <Link href={`/tag/${genre}`} key={index}>
+                  <li key={index} className={classes.genreItem}>
+                    {genre}
+                  </li>
+                </Link>
               ))}
             </ul>
 
             <ul className={classes.genreList}>
               {stats.most_common_genres.slice(3, 6).map(([genre], index) => (
-                <li key={index} className={classes.genreItem}>
-                  {genre}
-                </li>
+                <Link href={`/tag/${genre}`} key={index}>
+                  <li key={index} className={classes.genreItem}>
+                    {genre}
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>

@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { SearchService } from "@/lib/search-service";
 import { Anime } from "@/types/anime.types";
-import { ClassNames } from "@emotion/react";
 import { TextField, CircularProgress } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 
 import classes from "./debounce-search-bar.module.css";
+import { useRouter } from "next/router";
 
 export const DebounceSearchBar = () => {
   const [search, setSearch] = useState("");
@@ -14,6 +14,7 @@ export const DebounceSearchBar = () => {
   const [results, setResults] = useState<Anime[]>([]);
   const searchBarRef = useRef<HTMLInputElement>(null);
   const controllerRef = useRef<AbortController | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (controllerRef.current) {
@@ -88,6 +89,13 @@ export const DebounceSearchBar = () => {
           width: "100%",
         }}
         ref={searchBarRef}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            router.push(`/anime/search/${search}`);
+            setSearch("");
+            setResults([]);
+          }
+        }}
       />
       {isLoading && (
         <div

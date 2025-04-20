@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
       "cdn.anime-planet.com",
       "cdn.anidb.net",
       "cdn.anisearch.com",
+      "media.kitsu.app",
+      "s4.anilist.co",
     ],
   },
 };

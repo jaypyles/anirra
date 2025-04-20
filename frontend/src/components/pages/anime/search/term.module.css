@@ -37,3 +37,11 @@
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
 }
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  overflow: auto;
+}

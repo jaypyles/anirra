@@ -14,3 +14,4 @@ class AnimeModel(BaseModel):
     tags: list[str]
     sources: list[str]
     reccomendation_string: str
+    extra_titles: list[str]

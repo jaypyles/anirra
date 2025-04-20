@@ -61,6 +61,7 @@ class Anime(Base):
     tags = Column(JSON)
     sources = Column(JSON)
     reccomendation_string = Column(String)
+    extra_titles = Column(JSON)
 
 
 @final

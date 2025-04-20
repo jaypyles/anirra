@@ -34,7 +34,8 @@ export const SearchResult = ({ anime, className }: SearchResultProps) => {
           <span className={styles.status}>{anime.status}</span>
         </div>
         <div className={styles.rating}>
-          <span className={styles.star}>★</span> {anime.rating.toFixed(1)}
+          <span className={styles.star}>★</span>{" "}
+          {anime.rating ? anime.rating.toFixed(2) : "N/A"}
         </div>
         <div className={styles.genres}>
           {anime.tags && anime.tags.length > 0
