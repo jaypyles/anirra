@@ -8,7 +8,9 @@ interface ExtendedUser extends NextAuthUser {
 }
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET || "",
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    "cQMmaBUdU4M2i6CcPufbsr+ZJkmtux9wH8Y0ZaxQEKA=",
   session: {
     strategy: "jwt",
   },
@@ -44,7 +46,8 @@ export const authOptions: NextAuthOptions = {
 
         const decoded = jwt.verify(
           access_token || "",
-          process.env.JWT_SECRET || ""
+          process.env.JWT_SECRET ||
+            "cQMmaBUdU4M2i6CcPufbsr+ZJkmtux9wH8Y0ZaxQEKA="
         ) as unknown as ExtendedUser;
 
         if (response.ok && access_token) {

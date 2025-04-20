@@ -1,31 +1,23 @@
 services:
-  anime-backend:
-    container_name: anime-backend
+  anirra:
+    container_name: anirra
     build:
       context: .
-      dockerfile: Dockerfile.backend
-    command: ./start.sh
+      dockerfile: Dockerfile
+    command: bash /start.sh
     env_file: .env
     volumes:
-      - ./src:/app/src
-      - ./data:/app/data
-      - ./config.yaml:/app/config.yaml
-    ports:
-      - 8000:8000
-  anime-frontend:
-    container_name: anime-frontend
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    env_file: ./frontend/.env
-    volumes:
-      - ./frontend/public:/app/public
-      - ./frontend/src:/app/src
-      - ./frontend/tsconfig.json:/app/tsconfig.json
-      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
-      - ./frontend/postcss.config.mjs:/app/postcss.config.mjs
-      - ./frontend/next.config.ts:/app/next.config.ts
-      - ./frontend/eslint.config.mjs:/app/eslint.config.mjs
-      - ./frontend/components.json:/app/components.json
+      - ./frontend/public:/frontend/public
+      - ./frontend/src:/frontend/src
+      - ./frontend/tsconfig.json:/frontend/tsconfig.json
+      - ./frontend/tailwind.config.ts:/frontend/tailwind.config.ts
+      - ./frontend/postcss.config.mjs:/frontend/postcss.config.mjs
+      - ./frontend/next.config.ts:/frontend/next.config.ts
+      - ./frontend/eslint.config.mjs:/frontend/eslint.config.mjs
+      - ./frontend/components.json:/frontend/components.json
+      - ./src:/project/src
+      - ./data:/project/data
+      - ./config.yaml:/project/config.yaml
     ports:
       - 3000:3000
+      - 8000:8000

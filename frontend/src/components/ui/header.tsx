@@ -67,9 +67,11 @@ const Header = () => {
             <AuthButton toggleAuthModal={toggleAuthModal} />
           </nav>
 
-          <nav className="hidden md:flex space-x-10">
-            <DebounceSearchBar />
-          </nav>
+          {user && user.username && (
+            <nav className="hidden md:flex space-x-10">
+              <DebounceSearchBar />
+            </nav>
+          )}
         </div>
       </div>
 

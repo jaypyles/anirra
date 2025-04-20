@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session, sessionmaker
 _ = load_dotenv()
 
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/database.db")
 
 engine = create_engine(
     DATABASE_URL,

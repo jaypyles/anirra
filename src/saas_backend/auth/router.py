@@ -27,6 +27,7 @@ async def login(
     user = UserManager.authenticate_user(form_data.username, form_data.password)
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+
     access_token = JwtHandler.create_access_token(
         data={
             "id": user.id,
@@ -38,6 +39,7 @@ async def login(
     )
 
     response = JSONResponse(content={"message": "User logged in successfully"})
+
     response.set_cookie(
         key="access_token",
         value=access_token,

@@ -7,7 +7,12 @@ const api = axios.create({
 });
 
 const getJwt = async (req: NextApiRequest) => {
-  return await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  return await getToken({
+    req,
+    secret:
+      process.env.NEXTAUTH_SECRET ||
+      "cQMmaBUdU4M2i6CcPufbsr+ZJkmtux9wH8Y0ZaxQEKA=",
+  });
 };
 
 export default async function handler(
