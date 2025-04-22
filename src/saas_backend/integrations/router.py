@@ -70,20 +70,23 @@ async def add_radarr_series(request: RadarrAddRequest):
 
 @router.get("/settings")
 async def get_settings():
-    sonarr_config = read_config("sonarr")
-    radarr_config = read_config("radarr")
-    jellyfin_config = read_config("jellyfin")
+    try:
+        sonarr_config = read_config("sonarr")
+        radarr_config = read_config("radarr")
+        jellyfin_config = read_config("jellyfin")
 
-    enabled_integrations = []
+        enabled_integrations = []
 
-    if sonarr_config:
-        enabled_integrations.append("sonarr")
-    if radarr_config:
-        enabled_integrations.append("radarr")
-    if jellyfin_config:
-        enabled_integrations.append("jellyfin")
+        if sonarr_config:
+            enabled_integrations.append("sonarr")
+        if radarr_config:
+            enabled_integrations.append("radarr")
+        if jellyfin_config:
+            enabled_integrations.append("jellyfin")
 
-    return enabled_integrations
+        return enabled_integrations
+    except FileNotFoundError:
+        return []
 
 
 @router.post("/upload")
