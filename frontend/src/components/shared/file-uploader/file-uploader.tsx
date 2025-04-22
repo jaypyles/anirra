@@ -27,6 +27,8 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
     try {
       await WatchlistService.convertFile(file);
       onUpload?.(file);
+
+      window.location.reload();
     } catch (error) {
       console.error("Error uploading file:", error);
     } finally {
