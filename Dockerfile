@@ -50,6 +50,8 @@ WORKDIR /project
 COPY pyproject.toml pdm.lock /project/
 COPY ./src /project/src/
 COPY ./data /project/data/
+COPY alembic.ini /project/alembic.ini
+COPY alembic /project/alembic/
 
 RUN pdm install && \
     rm -rf /root/.cache/pip
