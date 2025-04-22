@@ -16,3 +16,11 @@
   color: var(--grey-dark);
   font-weight: 600;
 }
+
+.fileUploader {
+  position: absolute;
+  background-color: var(--p-light);
+  top: 5rem;
+  right: 1rem;
+  z-index: 100;
+}
