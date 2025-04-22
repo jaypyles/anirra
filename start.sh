@@ -4,8 +4,8 @@ APP_LEVEL=$APP_LEVEL
 export PATH="/root/.nvm/versions/node/v22.14.0/bin:$PATH"
 
 # Run alembic revisions
-cd project
-alembic upgrade head
+cd /project
+pdm run alembic upgrade head
 
 if [ "$APP_LEVEL" == "PROD" ]; then
     export FRONTEND_COMMAND="npm run start"
