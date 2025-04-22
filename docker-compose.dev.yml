@@ -9,14 +9,14 @@ services:
     environment:
       - APP_MODE=DEV
     volumes:
-      - ./frontend/public:/frontend/public
-      - ./frontend/src:/frontend/src
-      - ./frontend/tsconfig.json:/frontend/tsconfig.json
-      - ./frontend/tailwind.config.ts:/frontend/tailwind.config.ts
-      - ./frontend/postcss.config.mjs:/frontend/postcss.config.mjs
-      - ./frontend/next.config.ts:/frontend/next.config.ts
-      - ./frontend/eslint.config.mjs:/frontend/eslint.config.mjs
-      - ./frontend/components.json:/frontend/components.json
+      - ./frontend/public:/app/public
+      - ./frontend/src:/app/src
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
+      - ./frontend/postcss.config.mjs:/app/postcss.config.mjs
+      - ./frontend/next.config.ts:/app/next.config.ts
+      - ./frontend/eslint.config.mjs:/app/eslint.config.mjs
+      - ./frontend/components.json:/app/components.json
       - ./src:/project/src
       - ./data:/project/data
       - ./config.yaml:/project/config.yaml

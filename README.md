@@ -8,6 +8,7 @@ Anirra is a completely self-hosted anime watchlist, search, and recommendations 
 - **Search Functionality**: Easily search for anime by title or tags.
 - **Personalized Recommendations**: Get suggestions based on your watchlist and preferences.
 - **Integration with Sonarr and Radarr**: Seamlessly add series and movies to your media server.
+- **Convert your MAL list**: Upload your MAL XML file from [MAL XML Exporter](https://myanimelist.net/panel.php?go=export), and easily move to using Anirra.
 
 ## Screenshots
 

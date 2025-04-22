@@ -1,4 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from saas_backend.auth.models import User
+from saas_backend.auth.user_manager.user_manager import UserManager
+from saas_backend.integrations.convert_to_watchlist import xml_to_watchlist
 from saas_backend.integrations.request_models import (
     RadarrAddRequest,
     SonarrAddRequest,
@@ -81,3 +84,12 @@ async def get_settings():
         enabled_integrations.append("jellyfin")
 
     return enabled_integrations
+
+
+@router.post("/upload")
+async def upload_file(
+    file: UploadFile = File(...), user: User = Depends(UserManager.get_user_from_header)
+):
+    xml_to_watchlist(file.file, user_id=user.id)
+
+    return {"message": "XML file converted to watchlist"}
