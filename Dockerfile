@@ -35,8 +35,9 @@ RUN python -m pip --no-cache-dir install pdm
 
 # Frontend setup
 WORKDIR /app
+
 COPY --from=frontend-builder /frontend/public ./public
-COPY --from=frontend-builder /frontend/.next ./next
+COPY --from=frontend-builder /frontend/.next ./.next
 COPY --from=frontend-builder /frontend/node_modules ./node_modules
 COPY --from=frontend-builder /frontend/package.json ./package.json
 COPY --from=frontend-builder /frontend/tsconfig.json ./tsconfig.json
