@@ -52,6 +52,7 @@ COPY ./src /project/src/
 COPY ./data /project/data/
 COPY alembic.ini /project/alembic.ini
 COPY alembic /project/alembic/
+RUN touch /project/data/database.db
 
 RUN pdm install && \
     rm -rf /root/.cache/pip
