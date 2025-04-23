@@ -122,8 +122,19 @@ body {
 
 .MuiButton-root.Mui-disabled {
   background-color: var(--purple-disabled) !important;
+  color: white !important;
+}
+
+.MuiButton-root {
+  background-color: var(--purple-primary) !important;
+  color: white !important;
+  font-family: var(--root-font) !important;
 }
 
 .react-multi-carousel-item {
   max-width: 20rem !important;
+}
+
+.MuiSelect-root {
+  font-family: var(--root-font) !important;
 }

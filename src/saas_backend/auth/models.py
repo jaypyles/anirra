@@ -71,6 +71,7 @@ class WatchlistToAnime(Base):
     watchlist_id = Column(Integer)
     anime_id = Column(Integer)
     status = Column(Enum(AnimeStatus))
+    rating = Column(Integer)
 
 
 @final

@@ -6,9 +6,10 @@ export type Anime = {
   status: string;
   year: number;
   genres: string[];
-  rating: number;
+  rating?: number;
   recommendations: Anime[];
   image_url: string;
   tags: string[];
   watchlist_status?: string;
+  user_rating?: number;
 };
