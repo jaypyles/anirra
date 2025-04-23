@@ -104,21 +104,25 @@ async def get_watchlists(user: User = Depends(UserManager.get_user_from_header))
     watchlist_to_anime = connection.query(WatchlistToAnime).filter(WatchlistToAnime.watchlist_id == watchlist.id).all()  # type: ignore
 
     animes = [
-        {
-            "id": anime.anime_id,
-            "status": anime.status,
-        }
+        {"id": anime.anime_id, "status": anime.status, "user_rating": anime.rating}
         for anime in watchlist_to_anime
     ]
 
     watchlist_animes = connection.query(Anime).filter(Anime.id.in_([anime["id"] for anime in animes])).all()  # type: ignore
 
     # Create a dictionary to map anime IDs to their status
-    anime_status_map = {anime["id"]: anime["status"] for anime in animes}
+    anime_status_map = {
+        anime["id"]: {"status": anime["status"], "user_rating": anime["user_rating"]}
+        for anime in animes
+    }
 
     # Include the status in the response
     anime_with_status = [
-        {**to_dict(anime), "watchlist_status": anime_status_map.get(anime.id)}
+        {
+            **to_dict(anime),
+            "watchlist_status": anime_status_map.get(anime.id, {}).get("status"),
+            "user_rating": anime_status_map.get(anime.id, {}).get("user_rating"),
+        }
         for anime in watchlist_animes
     ]
 
@@ -226,6 +230,33 @@ async def get_anime_stats(user: User = Depends(UserManager.get_user_from_header)
             "most_common_genres": most_common_genres,
         },
     )
+
+
+@router.get("/rate")
+async def rate_anime(
+    anime_id: int, rating: int, user: User = Depends(UserManager.get_user_from_header)
+):
+    connection = next(get_db())
+    anime = connection.query(Anime).filter(Anime.id == anime_id).first()  # type: ignore
+
+    if not anime:
+        raise HTTPException(status_code=404, detail="Anime not found")
+
+    watchlist = connection.query(Watchlist).filter(Watchlist.user_id == user.id).first()  # type: ignore
+
+    if not watchlist:
+        raise HTTPException(status_code=404, detail="Watchlist not found")
+
+    watchlist_to_anime = connection.query(WatchlistToAnime).filter(WatchlistToAnime.anime_id == anime_id, WatchlistToAnime.watchlist_id == watchlist.id).first()  # type: ignore
+
+    if not watchlist_to_anime:
+        raise HTTPException(status_code=404, detail="Watchlist entry not found")
+
+    watchlist_to_anime.rating = rating  # type: ignore
+
+    connection.commit()
+
+    return JSONResponse(status_code=200, content={"message": "Anime rated"})
 
 
 @router.get("/{id}")

@@ -42,6 +42,7 @@ def xml_to_watchlist(xml_file: BinaryIO, user_id: int):
 
     for anime in animes:
         status = convert_from_mal_status(anime.find("my_status").text or "")  # type: ignore
+        rating = anime.find("my_score").text or None  # type: ignore
 
         # Check if the anime already exists in the database
         existing_anime = connection.query(Anime).filter(Anime.title == anime.find("series_title").text).first()  # type: ignore
@@ -58,6 +59,9 @@ def xml_to_watchlist(xml_file: BinaryIO, user_id: int):
 
         if entry:
             logger.info(f"Anime {existing_anime.title} already exists in the watchlist")
+            logger.info("Attempting to override rating")
+            entry.rating = rating  # type: ignore
+            connection.commit()
             continue
 
         # Create a WatchlistToAnime entry
@@ -65,6 +69,7 @@ def xml_to_watchlist(xml_file: BinaryIO, user_id: int):
             watchlist_id=watchlist.id,
             anime_id=existing_anime.id,
             status=status,
+            rating=rating,
         )
 
         connection.add(watchlist_to_anime)

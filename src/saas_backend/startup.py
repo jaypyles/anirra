@@ -50,8 +50,6 @@ def on_startup():
         anime_to_watchlist = WatchlistToAnime(
             watchlist_id=999, anime_id=20766, status=AnimeStatus.WATCHING
         )
-    else:
-        anime_to_watchlist.status = AnimeStatus.WATCHING  # type: ignore
 
     connection.add(watchlist)
     connection.add(anime_to_watchlist)

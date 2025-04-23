@@ -51,6 +51,7 @@ export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
                   (anime) => anime.watchlist_status === "WATCHING"
                 ),
               }}
+              tab="watching"
             />
           )}
           {value === 1 && (
@@ -61,6 +62,7 @@ export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
                   (anime) => anime.watchlist_status === "WATCHED"
                 ),
               }}
+              tab="completed"
             />
           )}
           {value === 2 && (
@@ -71,6 +73,7 @@ export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
                   (anime) => anime.watchlist_status === "DROPPED"
                 ),
               }}
+              tab="dropped"
             />
           )}
           {value === 3 && (
@@ -81,6 +84,7 @@ export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
                   (anime) => anime.watchlist_status === "PLANNING"
                 ),
               }}
+              tab="planning"
             />
           )}
         </Box>

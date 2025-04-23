@@ -3,17 +3,29 @@ import Image from "next/image";
 import { Watchlist as WatchlistType } from "@/types/watchlist.types";
 import styles from "./watchlist-table.module.css";
 import { Button, IconButton } from "@mui/material";
-import { TrashIcon } from "lucide-react";
+import { StarIcon, TrashIcon } from "lucide-react";
 import { WatchlistService } from "@/lib/watchlist-service";
 import { Anime } from "@/types/anime.types";
 import { toast } from "react-toastify";
+import { AnimeRatingDialog } from "../anime-rating-dialog";
 
-export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
+type WatchlistTab = "watching" | "completed" | "dropped" | "planning";
+
+export const WatchlistTable = ({
+  watchlist,
+  tab,
+}: {
+  watchlist: WatchlistType;
+  tab: WatchlistTab;
+}) => {
   const [animes, setAnimes] = useState<Anime[]>(watchlist.anime);
   const [selectedAnimeIds, setSelectedAnimeIds] = useState<Set<number>>(
     new Set()
   );
   const [currentPage, setCurrentPage] = useState(0);
+  const [openRatingDialog, setOpenRatingDialog] = useState(false);
+  const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
+
   const itemsPerPage = 6;
 
   const handleCheckboxChange = (animeId: number) => {
@@ -68,8 +80,23 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
   }, []);
 
   const startIndex = currentPage * itemsPerPage;
-  const currentAnimes = animes.slice(startIndex, startIndex + itemsPerPage);
+  const [currentAnimes, setCurrentAnimes] = useState<Anime[]>(
+    animes.slice(startIndex, startIndex + itemsPerPage)
+  );
+
   const totalPages = Math.ceil(animes.length / itemsPerPage);
+
+  const onRate = (animeId: number, rating: number) => {
+    setCurrentAnimes((prevAnimes) =>
+      prevAnimes.map((anime) =>
+        anime.id === animeId ? { ...anime, user_rating: rating } : anime
+      )
+    );
+  };
+
+  useEffect(() => {
+    setCurrentAnimes(animes.slice(startIndex, startIndex + itemsPerPage));
+  }, [currentPage, animes, startIndex, itemsPerPage]);
 
   useEffect(() => {
     if (currentAnimes.length === 0 && currentPage > 0) {
@@ -100,6 +127,9 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
             <th className={styles.headerCell}>Release</th>
             <th className={styles.headerCell}>Status</th>
             <th className={styles.headerCell}>Progress</th>
+            {tab !== "planning" && tab !== "watching" && (
+              <th className={styles.headerCell}>Rating</th>
+            )}
             <th className={styles.headerCell}>Delete</th>
           </tr>
         </thead>
@@ -119,6 +149,7 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
                   onChange={() => handleCheckboxChange(anime.id)}
                 />
               </td>
+
               <td className={styles.cell}>
                 <div className={styles.nameContainer}>
                   <div className={styles.imageWrapper}>
@@ -139,8 +170,11 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
                   </div>
                 </div>
               </td>
+
               <td className={styles.cell}>{anime.episode_count}</td>
+
               <td className={styles.cell}>{anime.year}</td>
+
               <td className={styles.cell}>
                 <span
                   className={`${styles.statusBadge} ${getStatusClassName(
@@ -150,6 +184,7 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
                   {anime.status.toLowerCase()}
                 </span>
               </td>
+
               <td className={styles.cell}>
                 <span
                   className={`${styles.statusBadge} ${getStatusClassName(
@@ -159,6 +194,25 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
                   {anime.watchlist_status?.toLowerCase() || "not started"}
                 </span>
               </td>
+
+              {tab !== "planning" && tab !== "watching" && (
+                <td className={styles.cell}>
+                  <IconButton
+                    onClick={() => {
+                      setSelectedAnime(anime);
+                      setOpenRatingDialog(true);
+                    }}
+                  >
+                    <StarIcon />
+                  </IconButton>
+                  <span className={styles.rating}>
+                    {anime.user_rating
+                      ? anime.user_rating.toFixed(0)
+                      : "not rated"}
+                  </span>
+                </td>
+              )}
+
               <td className={styles.cell}>
                 <IconButton onClick={() => handleDelete(anime.id, anime.title)}>
                   <TrashIcon />
@@ -189,6 +243,16 @@ export const WatchlistTable = ({ watchlist }: { watchlist: WatchlistType }) => {
           <span>Next</span>
         </Button>
       </div>
+      <AnimeRatingDialog
+        open={openRatingDialog}
+        onClose={() => {
+          setOpenRatingDialog(false);
+          setSelectedAnime(null);
+        }}
+        initialRating={selectedAnime?.user_rating || 0}
+        animeId={selectedAnime?.id || 0}
+        onRate={onRate}
+      />
     </div>
   );
 };
