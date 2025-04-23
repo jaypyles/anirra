@@ -4,7 +4,7 @@ from typing import final
 from pydantic import BaseModel
 from sqlalchemy import JSON, Column, DateTime, Enum, Float, ForeignKey, Integer, String
 
-from saas_backend.auth.database import Base, engine
+from saas_backend.auth.database import Base
 
 
 class BaseUser(BaseModel):
@@ -79,6 +79,3 @@ class Watchlist(Base):
     __tablename__ = "watchlist"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer)
-
-
-Base.metadata.create_all(bind=engine)
