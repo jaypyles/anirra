@@ -89,8 +89,11 @@ async def get_settings():
         if jellyfin_config:
             enabled_integrations.append("jellyfin")
 
+        logger.info(f"Enabled integrations: {enabled_integrations}")
+
         return enabled_integrations
-    except FileNotFoundError:
+    except FileNotFoundError as e:
+        logger.error(f"Error getting settings: {e}")
         return []
 
 
