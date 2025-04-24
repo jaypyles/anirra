@@ -3,14 +3,14 @@ import { Upload } from "lucide-react";
 import { Button } from "@mui/material";
 import { WatchlistService } from "@/lib/watchlist-service";
 
-export type FileUploaderProps = {
+export type ImportButtonProps = {
   className?: string;
-  onUpload?: (file: File) => void;
+  onImport?: (file: File) => void;
 };
 
-export const FileUploader: React.FC<FileUploaderProps> = ({
+export const ImportButton: React.FC<ImportButtonProps> = ({
   className,
-  onUpload,
+  onImport,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,12 +25,12 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
     }
 
     try {
-      await WatchlistService.convertFile(file);
-      onUpload?.(file);
+      await WatchlistService.importWatchlist(file);
+      onImport?.(file);
 
       window.location.reload();
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.error("Error importing watchlist:", error);
     } finally {
       setIsLoading(false);
     }
@@ -41,13 +41,13 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
   return (
     <div className={className}>
       <input
-        accept=".xml"
+        accept=".json"
         style={{ display: "none" }}
-        id="file-upload"
+        id="file-upload-import"
         type="file"
         onChange={handleFileChange}
       />
-      <label htmlFor="file-upload">
+      <label htmlFor="file-upload-import">
         <Button
           variant="contained"
           component="span"
@@ -63,7 +63,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
             },
           }}
         >
-          {isLoading ? "Uploading..." : "Upload MAL XML"}
+          {isLoading ? "Importing..." : "Import Watchlist"}
         </Button>
       </label>
     </div>

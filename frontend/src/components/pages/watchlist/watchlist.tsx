@@ -6,6 +6,8 @@ import { WatchlistTable } from "@/components/shared/watchlist-table";
 import classes from "./watchlist.module.css";
 import Head from "next/head";
 import { FileUploader } from "@/components/shared/file-uploader";
+import { ExportButton } from "@/components/shared/export-button";
+import { ImportButton } from "@/components/shared/import-button";
 
 export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
   const [value, setValue] = React.useState(0);
@@ -42,7 +44,11 @@ export const Watchlist = ({ watchlist }: { watchlist: WatchlistType }) => {
           />
         </Tabs>
         <Box className={classes.watchlistContent}>
-          <FileUploader className={classes.fileUploader} />
+          <div className={classes.actionButtons}>
+            <FileUploader className={classes.fileUploader} />
+            <ExportButton className={classes.exportButton} />
+            <ImportButton className={classes.importButton} />
+          </div>
           {value === 0 && (
             <WatchlistTable
               watchlist={{

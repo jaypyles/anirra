@@ -67,11 +67,11 @@ class Anime(Base):
 @final
 class WatchlistToAnime(Base):
     __tablename__ = "watchlist_to_anime"
-    id = Column(Integer, primary_key=True, index=True)
-    watchlist_id = Column(Integer)
-    anime_id = Column(Integer)
-    status = Column(Enum(AnimeStatus))
-    rating = Column(Integer)
+    id = Column(Integer, primary_key=True, index=True)  # entry id
+    watchlist_id = Column(Integer)  # watchlist id
+    anime_id = Column(Integer)  # anime id
+    status = Column(Enum(AnimeStatus))  # status of the anime
+    rating = Column(Integer)  # rating of the anime
 
 
 @final
