@@ -18,7 +18,7 @@ export default async function GetServerSideProps(
   }
 
   const stats = await fetch(
-    `${process.env.API_URL || "http://localhost:8000"}/anime/stats`,
+    `${process.env.API_URL || "http://127.0.0.1:8000"}/anime/stats`,
     {
       headers: {
         Authorization: `Bearer ${jwt.access_token}`,
@@ -29,7 +29,7 @@ export default async function GetServerSideProps(
   const statsData = await stats.json();
 
   const animeWatched = await fetch(
-    `${process.env.API_URL || "http://localhost:8000"}/anime/watchlists`,
+    `${process.env.API_URL || "http://127.0.0.1:8000"}/anime/watchlists`,
     {
       headers: {
         Authorization: `Bearer ${jwt.access_token}`,
@@ -49,7 +49,7 @@ export default async function GetServerSideProps(
 
   const animeRecommendations = await fetch(
     `${
-      process.env.API_URL || "http://localhost:8000"
+      process.env.API_URL || "http://127.0.0.1:8000"
     }/anime/recommendations?${animeWatchedData.anime
       .map((anime: Anime) => `ids=${anime.id}`)
       .join("&")}&limit=20`,

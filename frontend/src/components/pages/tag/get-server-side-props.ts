@@ -9,7 +9,7 @@ export default async function GetServerSideProps(
 
   const url = new URL(
     `/anime/search/tags?query=${context.params?.tag}`,
-    process.env.API_URL || "http://localhost:8000"
+    process.env.API_URL || "http://127.0.0.1:8000"
   );
 
   if (offsetValue > 0) {

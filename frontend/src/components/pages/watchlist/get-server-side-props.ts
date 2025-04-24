@@ -13,7 +13,7 @@ export default async function GetServerSideProps(
   }
 
   const watchlist = await fetch(
-    `${process.env.API_URL || "http://localhost:8000"}/anime/watchlists`,
+    `${process.env.API_URL || "http://127.0.0.1:8000"}/anime/watchlists`,
     {
       headers: {
         Authorization: `Bearer ${jwt.access_token}`,

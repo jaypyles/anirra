@@ -4,11 +4,15 @@ export default async function GetServerSideProps(
   context: GetServerSidePropsContext
 ) {
   const anime = await fetch(
-    `${process.env.API_URL || "http://localhost:8000"}/anime/${context.params?.id}`
+    `${process.env.API_URL || "http://127.0.0.1:8000"}/anime/${
+      context.params?.id
+    }`
   );
 
   const recommendations = await fetch(
-    `${process.env.API_URL || "http://localhost:8000"}/anime/recommendations?ids=${context.params?.id}&limit=20`
+    `${
+      process.env.API_URL || "http://127.0.0.1:8000"
+    }/anime/recommendations?ids=${context.params?.id}&limit=20`
   );
 
   const recommendationsData = await recommendations.json();

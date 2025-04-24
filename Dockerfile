@@ -19,17 +19,8 @@ RUN npm run build
 # Stage 2: Combine frontend and backend into a single final image with supervisor
 FROM python:3.12-slim as final-image
 
-RUN apt update && apt install -y --no-install-recommends supervisor curl uvicorn docker.io && \
+RUN apt update && apt install -y --no-install-recommends supervisor curl uvicorn docker.io npm nodejs && \
     rm -rf /var/lib/apt/lists/* 
-
-ENV NODE_VERSION=22
-RUN apt install -y curl
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
-ENV NVM_DIR=/root/.nvm
-RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
-RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
-RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
-ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
 RUN python -m pip --no-cache-dir install pdm
 

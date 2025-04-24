@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const response = await fetch(
-          `${process.env.API_URL || "http://localhost:8000"}/login`,
+          `${process.env.API_URL || "http://127.0.0.1:8000"}/login`,
           {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
