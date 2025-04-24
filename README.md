@@ -58,7 +58,7 @@ But if you would like to, you can create a new user with a more secure password.
 There are a few set of environment variables you can use to customize the app (all are completely optional). 
 
 ```
-APP_MODE=(DEV || PROD) # defaults to PROD in the docker-compose.yml
+APP_LEVEL=(DEV || PROD) # defaults to PROD in the docker-compose.yml
 DATABASE_URL=whatever you want here if you don't want to use the sqlite database that the app comes with
 JSON_DATA_PATH=wherever the `anime_offline_database.json` is located, by default its at /data
 JWT_SECRET=a secret used to encode the user jwt
@@ -80,8 +80,31 @@ radarr:
   api_key: 123456
 ```
 
+## Example Docker Compose
+
+```yaml
+services:
+  anirra:
+    container_name: anirra
+    image: jpyles0524/anirra:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash /start.sh
+    environment:
+      - APP_LEVEL=PROD
+      - NEXTAUTH_URL=<your_deployment_url>
+    volumes:
+      - ./data:/project/data
+      - ./config.yaml:/project/config.yaml
+    ports:
+      - 3000:3000
+      - 8000:8000
+```
+
 ## Coming Soon
 
 - **Mobile Support**: Simplified UI for mobile viewing
 - **Watchlist Rating**: Rate the anime and get better recommendations based off of what you like
 - **Jellyfin Integration**: Automatically sync the anime you are watching on Jellyfin
+
