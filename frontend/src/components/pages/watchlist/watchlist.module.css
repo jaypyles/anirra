@@ -17,10 +17,17 @@
   font-weight: 600;
 }
 
-.fileUploader {
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
   position: absolute;
-  background-color: var(--p-light);
   top: 5rem;
   right: 1rem;
   z-index: 100;
+}
+
+.fileUploader {
+  background-color: var(--p-light);
 }
