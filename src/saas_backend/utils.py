@@ -10,7 +10,8 @@ def read_config(config_name: str):
     try:
         with open("config.yaml", "r") as f:
             config = yaml.safe_load(f)
+
     except FileNotFoundError:
         raise FileNotFoundError("config.yaml not found")
 
-    return config[config_name]
+    return config.get(config_name)
