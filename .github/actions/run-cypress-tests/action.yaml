@@ -28,6 +28,10 @@ runs:
       shell: bash
       run: pdm install
 
+    - name: Setup local database
+      shell: bash
+      run: mkdir -p data && touch data/database.db
+
     - name: Load database
       shell: bash
       run: pdm run alembic upgrade head
