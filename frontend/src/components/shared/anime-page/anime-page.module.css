@@ -25,7 +25,7 @@
 }
 
 .metadataItem {
-  background-color: #f8f9fa;
+  background-color: var(--grey-light);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 12px 16px;
@@ -51,7 +51,7 @@
   font-family: var(--root-font);
   font-size: 1rem;
   font-weight: 500;
-  color: #212529;
+  color: var(--grey-dark);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -71,7 +71,7 @@
 }
 
 .rightColumnContainer {
-  background-color: #f8f9fa;
+  background-color: var(--grey-light);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 16px;
@@ -121,7 +121,7 @@
 }
 
 .watchlistForm {
-  background-color: #f8f9fa;
+  background-color: var(--grey-light);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 16px 20px;
@@ -131,7 +131,7 @@
 .watchlistForm h2 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #212529;
+  color: var(--grey-dark);
   margin-bottom: 12px;
 }
 
@@ -188,4 +188,11 @@
 .integrationContainer {
   display: flex;
   gap: 1rem;
+}
+
+.descriptionContent {
+  font-family: var(--root-font);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--grey-dark);
 }

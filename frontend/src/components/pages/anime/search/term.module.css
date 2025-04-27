@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--grey-light);
+  background-color: var(--grey-background);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -38,14 +38,6 @@
   border-radius: 0.25rem;
 }
 
-.resultsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100%;
-  overflow: auto;
-}
-
 .pagination {
   display: flex;
   justify-content: space-between;
@@ -75,4 +67,12 @@
   font-size: 1rem;
   font-weight: 600;
   color: var(--grey-dark);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  overflow: auto;
 }

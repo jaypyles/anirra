@@ -1,21 +1,21 @@
 .root {
-  background-color: #f0f0f0;
+  background-color: var(--grey-light);
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  color: black;
+  color: var(--grey-dark);
 }
 
 .header {
   font-family: var(--root-font);
   font-size: 2.5rem;
   font-weight: 700;
-  color: #333;
+  color: var(--grey-dark);
   text-align: center;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 3px solid #f0f0f0;
+  border-bottom: 3px solid var(--grey-light);
 }
 
 .body {
@@ -55,6 +55,7 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   padding: 1rem;
+  background-color: var(--grey-background);
 }
 
 /* Content container */
@@ -66,7 +67,7 @@
 
 /* Metadata styling */
 .metadata {
-  background-color: #f8f8f8;
+  background-color: var(--grey-background);
   border-radius: 8px;
   padding: 1.25rem;
   display: grid;

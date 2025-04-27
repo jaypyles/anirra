@@ -57,7 +57,7 @@ export const SearchTerm = ({ animeSearch, totalCount }: SearchTermProps) => {
             <span className={styles.tag}>{searchTerm}</span>
           </h1>
         </SearchHeader>
-        <div className={styles.resultsContainer}>
+        <div className={styles.results}>
           {animeSearch.map((anime) => (
             <SearchResult key={anime.title} anime={anime} />
           ))}
