@@ -28,6 +28,10 @@ runs:
       shell: bash
       run: pdm install
 
+    - name: Load database
+      shell: bash
+      run: pdm run alembic upgrade head
+
     - name: Start backend
       shell: bash
       run: pdm run python -m uvicorn src.saas_backend.app:app --host 0.0.0.0 --port 8000 &
@@ -38,11 +42,11 @@ runs:
 
     - name: Wait for backend to be ready
       shell: bash
-      run: npx wait-on http://localhost:8000
+      run: npx wait-on http://localhost:8000 --timeout 10000
 
     - name: Wait for frontend to be ready
       shell: bash
-      run: npx wait-on http://localhost:3000
+      run: npx wait-on http://localhost:3000 --timeout 10000
 
     - name: Run Cypress tests
       shell: bash
