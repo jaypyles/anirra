@@ -13,7 +13,10 @@ export const Recommendations = ({
   className?: string;
 }) => {
   return (
-    <section className={classes.recommendedSection}>
+    <section
+      className={classes.recommendedSection}
+      data-testid="recommendations"
+    >
       <h2 className={classes.sectionTitle}>{title || "Recommended for you"}</h2>
       <div className={classes.animeGrid}>
         {recommendedAnime.length > 0 ? (

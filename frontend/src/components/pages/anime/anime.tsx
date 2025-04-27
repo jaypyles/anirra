@@ -37,7 +37,6 @@ export const Anime = ({ anime, description, watchlistStatus }: AnimeProps) => {
             title={`Other anime like ${anime.title}`}
           />
         </div>
-        <AnimePage.Footer anime={anime} className={classes.footer} />
       </AnimePage.Root>
     </>
   );

@@ -117,9 +117,9 @@ export const DebounceSearchBar = () => {
           top: "100%",
           left: 0,
           right: 0,
-          backgroundColor: "white",
+          backgroundColor: "var(--grey-light)",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          zIndex: 1,
+          zIndex: 101,
         }}
       >
         {results &&
@@ -128,11 +128,12 @@ export const DebounceSearchBar = () => {
               key={index}
               style={{
                 padding: "8px",
-                borderBottom: "1px solid #ddd",
-                color: "black",
+                borderBottom: "1px solid var(--grey-dark)",
+                color: "var(--grey-dark)",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
+                zIndex: 101,
               }}
             >
               <img
@@ -144,7 +145,7 @@ export const DebounceSearchBar = () => {
                   aspectRatio: "1/1",
                   borderRadius: "4px",
                   objectFit: "cover",
-                  border: "1px solid #ddd",
+                  border: "1px solid var(--grey-dark)",
                 }}
               />
               <a

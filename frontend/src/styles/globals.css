@@ -12,6 +12,9 @@
   --grey-light: #f5f5f7;
   --grey-medium: #868696;
   --grey-dark: #333340;
+  --primary-font-color: #f5f5f7;
+  --grey-background: #d4d4d45d;
+  --grey-border: #868696;
   --root-font: "Montserrat", sans-serif;
 }
 
@@ -19,6 +22,17 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --purple-primary: #8a4fff;
+    --purple-light: #b388ff;
+    --purple-dark: #5e35b1;
+    --purple-disabled: #917dbe;
+    --grey-light: #232325;
+    --grey-medium: #1f1f20;
+    --grey-dark: #dddddd;
+    --grey-background: #1f1f20;
+    --primary-font-color: #f5f5f7;
+    --grey-border: #333340;
+    --root-font: "Montserrat", sans-serif;
   }
 }
 
@@ -137,4 +151,21 @@ body {
 
 .MuiSelect-root {
   font-family: var(--root-font) !important;
+  color: var(--grey-dark) !important;
+}
+
+.MuiSelect-outlined {
+  color: var(--grey-dark) !important;
+}
+
+.MuiInputLabel-root {
+  color: var(--grey-dark) !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: var(--purple-primary) !important;
+}
+
+.MuiDialog-paper {
+  background-color: var(--grey-light) !important;
 }

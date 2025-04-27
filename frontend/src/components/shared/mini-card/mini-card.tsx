@@ -11,7 +11,7 @@ export const MiniCard = ({
   className?: string;
 }) => {
   return (
-    <div className={cn(classes.miniCard, className)}>
+    <div className={cn(classes.miniCard, className)} data-testid="mini-card">
       <Image
         className={classes.miniCardImage}
         src={anime.image_url}

@@ -39,11 +39,13 @@ export const AnimeRatingDialog = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ fontFamily: "var(--root-font)" }}>
+    <Dialog open={open} onClose={onClose} sx={{ color: "var(--grey-light)" }}>
+      <DialogTitle
+        sx={{ fontFamily: "var(--root-font)", color: "var(--grey-dark)" }}
+      >
         Rate Anime
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ color: "var(--grey-dark)" }}>
         <Select
           value={rating}
           onChange={(event) => {

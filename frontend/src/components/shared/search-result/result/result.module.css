@@ -4,7 +4,7 @@
   gap: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: var(--grey-background);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -73,13 +73,13 @@
 }
 
 .genres {
-  color: var(--grey-medium, #666);
+  color: var(--grey-dark);
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
 
 .description {
-  color: var(--grey-light, #888);
+  color: var(--grey-dark);
   font-size: 0.875rem;
   line-height: 1.4;
   overflow: hidden;

@@ -182,6 +182,7 @@ export const WatchlistForm = ({
           label="Status"
           className={classes.select}
           onChange={onSelectChange}
+          data-testid="watchlist-status-select"
         >
           <MenuItem value="PLANNING">Planning to Watch</MenuItem>
           <MenuItem value="DROPPED">Dropped</MenuItem>
