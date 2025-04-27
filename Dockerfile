@@ -41,11 +41,10 @@ COPY --from=frontend-builder /frontend/src ./src
 WORKDIR /project
 COPY pyproject.toml pdm.lock /project/
 COPY ./src /project/src/
-COPY ./data /project/data/
 COPY ./offline-data /project/offline-data/
 COPY alembic.ini /project/alembic.ini
 COPY alembic /project/alembic/
-RUN touch /project/data/database.db
+RUN mkdir -p /project/data && touch /project/data/database.db
 
 RUN pdm install && \
     rm -rf /root/.cache/pip
