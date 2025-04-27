@@ -26,7 +26,7 @@ runs:
       run: pdm install
 
     - name: Setup PDM
-      uses: pdm-project/setup-pdm-action@v4
+      uses: pdm-project/setup-pdm@v4
 
     - name: Start backend
       shell: bash
