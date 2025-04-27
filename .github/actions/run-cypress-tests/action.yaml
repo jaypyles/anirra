@@ -1,0 +1,46 @@
+name: Run Cypress Tests
+
+description: Run Cypress tests
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: Install frontend dependencies
+      shell: bash
+      run: cd frontend && npm install
+
+    - name: Install backend dependencies
+      shell: bash
+      run: cd backend && npm install
+
+    - name: Build the frontend
+      shell: bash
+      run: cd frontend && npm run build
+
+    - name: Start backend
+      shell: bash
+      run: cd backend && npm run start &
+
+    - name: Start frontend
+      shell: bash
+      run: cd frontend && npm run start &
+
+    - name: Wait for backend to be ready
+      shell: bash
+      run: npx wait-on http://localhost:8000
+
+    - name: Wait for frontend to be ready
+      shell: bash
+      run: npx wait-on http://localhost:3000
+
+    - name: Run Cypress tests
+      shell: bash
+      run: cd frontend && npm run cypress:run
