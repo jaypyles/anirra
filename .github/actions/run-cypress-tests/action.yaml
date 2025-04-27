@@ -42,11 +42,11 @@ runs:
 
     - name: Wait for backend to be ready
       shell: bash
-      run: npx wait-on http://localhost:8000 --timeout 10000
+      run: npx wait-on http://127.0.0.1:8000 --timeout 10000
 
     - name: Wait for frontend to be ready
       shell: bash
-      run: npx wait-on http://localhost:3000 --timeout 10000
+      run: npx wait-on http://127.0.0.1:3000 --timeout 10000
 
     - name: Run Cypress tests
       shell: bash
