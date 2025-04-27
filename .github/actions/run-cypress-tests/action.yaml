@@ -21,12 +21,12 @@ runs:
       shell: bash
       run: cd frontend && npm run build
 
+    - name: Setup PDM
+      uses: pdm-project/setup-pdm@v4
+
     - name: Install backend dependencies
       shell: bash
       run: pdm install
-
-    - name: Setup PDM
-      uses: pdm-project/setup-pdm@v4
 
     - name: Start backend
       shell: bash
